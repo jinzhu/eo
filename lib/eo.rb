@@ -1,6 +1,9 @@
-require 'optparse'
+%w(optparse yaml).each {|f| require f}
 
 class Eo
+
+  Config = YAML.load_file(File.join(ENV['HOME'],".eorc"))
+
   def self.execute(stdout, arguments=[])
 
     parser = OptionParser.new do |opts|
@@ -14,9 +17,12 @@ class Eo
         stdout.puts opts; exit
       end
 
-      opts.on("-v", "--version","Show version information.") do |args|
+      opts.on("-v", "--version","Show version information.") do
         puts Easyoperate::VERSION
       end
+
+#      opts.on("-u", "--update","Update Repository.") do
+#      end
 
       opts.parse!(arguments)
     end
