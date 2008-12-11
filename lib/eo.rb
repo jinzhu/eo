@@ -5,8 +5,6 @@ class Eo
 
     parser = OptionParser.new do |opts|
       opts.banner = <<-BANNER.gsub(/^          /,'')
-          This application is wonderful because...
-
           Usage: #{File.basename($0)} [options]
 
           Options are:
@@ -14,6 +12,10 @@ class Eo
 
       opts.on("-h", "--help","Show this help message.") do |args|
         stdout.puts opts; exit
+      end
+
+      opts.on("-v", "--version","Show version information.") do |args|
+        puts Easyoperate::VERSION
       end
 
       opts.parse!(arguments)
