@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), "test_helper.rb")
-require 'eo/cli'
+require 'eo'
 
-class TestEoCli < Test::Unit::TestCase
+class TestEo < Test::Unit::TestCase
   def setup
     @stdout_io = StringIO.new
-    Eo::CLI.execute(@stdout_io, [])
+    Eo.execute(@stdout_io, [])
     @stdout_io.rewind
     @stdout = @stdout_io.read
   end
