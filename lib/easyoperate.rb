@@ -1,5 +1,4 @@
-$:.unshift(File.dirname(__FILE__)) unless
-  $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
+$LOAD_PATH << File.dirname(__FILE__)
 
 module Easyoperate
   VERSION = '0.0.1'
