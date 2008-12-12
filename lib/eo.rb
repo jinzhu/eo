@@ -23,12 +23,20 @@ class Eo
         self.update(args)
       end
 
-      opts.on("-c [ARGS]", "--choose","Choose Repository.") do |args|
+      opts.on("-s [ARGS]", "--show","Show All Repositories.") do |args|
+        self.show(args)
+      end
+
+      opts.on("-c [ARGS]", "--choose","Choose Some Repository.") do |args|
         self.choose(args)
       end
 
       if !arguments.empty?
-        opts.parse!(arguments)
+        begin
+          opts.parse!(arguments)
+        rescue OptionParser::InvalidOption
+          puts "\e[31m;(\tError\e[0m \n\tHelp?\t\e[33m$ eo -h \e[31m;)\e[0m"
+        end
       else
         self.run
       end
