@@ -7,12 +7,17 @@ class Eo
   end
 
   def self.run
-    input = STDIN.gets.split(' ',2)
-    input[1].strip!
-    case input[0].to_s
-    when /-s/ then show(input[1])
-    when /-c/ then choose(input[1])
-    when /-u/ then update(input[1])
+    loop do
+      printf("\e[33mInput Commands (q to quit| h for help) :\e[0m")
+      input = STDIN.gets.split(' ',2)
+      input[1].strip!
+      case input[0].to_s
+      when /S/i then show(input[1])
+      when /C/i then choose(input[1])
+      when /U/i then update(input[1])
+      when /Q/i then exit(0)
+        #FIXME Help
+      end
     end
   end
 
@@ -25,8 +30,12 @@ class Eo
 
   def self.choose(*args)
     repos = pick(args)
-    input = STDIN.gets.strip
-    Repo[repos.first].send(input)
+    loop do
+      printf("\e[01;34m#{repos.first} $ \e[0m")
+      input = STDIN.gets.strip
+      break if input =~ /q/i
+      Repo[repos.first].send(input)
+    end
   end
 
   def self.update(*args)
@@ -48,9 +57,10 @@ class Eo
   end
 
   def self.choose_one(args)
+    puts "\e[32mPlease Choose One of them :\e[0m"
     args.each_index do |x|
-      printf "%2s" % (x+1).to_s
-      printf "%-15s\t" % [args[x].rstrip]
+      printf "%-3s" % (x+1).to_s
+      printf "\e[33m%-15s\e[0m\t" % [args[x].rstrip]
       printf "\n" if (x+1)%4 == 0
     end
     num = choose_range(args.size)

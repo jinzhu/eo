@@ -1,22 +1,22 @@
 class Scm < Hash
 
   def update
-    #FIXME DIR.pwd()
+    Dir.chdir(File.expand_path(self['path']))
+    puts self['path']
+
     old_commit = `git log --pretty=format:%H -1` #TODO SVN
     system("git pull")
     new_commit = `git log --pretty=format:%H -1`
     if new_commit == old_commit
-      "NO Update" #TODO
+      puts "NO Update"
     else
-      eval self['autorun'] if self['autorun'] #FIXME
-      "Update Log" #TODO
-    else
+      eval self['autorun'] if self['autorun']
     end
   end
 
   def shell
-   "GOTO The Shell"
-   #TODO source ~/.bashrc
+    Dir.chdir(File.expand_path(self['path']))
+    system("sh") #TODO source ~/.bashrc
   end
 
   alias sh shell
@@ -26,10 +26,9 @@ class Scm < Hash
     methods = self['cmd'].keys.grep(m)
 
     if methods.size == 1
-      eval self['cmd'][m]
-      #TODO shell git/svn commands
+      eval self['cmd'][m]    #TODO shell git/svn commands
     else
-        puts "No Methods"
+      puts "No Methods"
     end
   end
 end
