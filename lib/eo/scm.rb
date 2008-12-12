@@ -10,7 +10,11 @@ class Scm < Hash
     if new_commit == old_commit
       puts "NO Update"
     else
-      eval self['autorun'] if self['autorun']
+      if self['autorun']
+        self['autorun'].split(';').each do |x|
+          eval x
+        end
+      end
     end
   end
 
@@ -29,7 +33,7 @@ class Scm < Hash
       eval self['cmd'][m]
     else
       result = system(m + " " + args.join(' '))
-      puts "Some Wrong?" unless result
+      puts "\e[31mlol, Some Wrong?\e[0m" unless result
     end
   end
 
