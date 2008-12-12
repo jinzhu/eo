@@ -1,0 +1,9 @@
+# modify,then renamed to ~/.eorc
+vim-rails:
+  path: ~/vim/vim-rails/
+  repo: git://github.com/tpope/vim-rails.git
+  autorun: 'puts "Thank you for your update,tpope";cp_autoload;cp_plugin'
+  cmd:
+    cp_autoload: 'cp autoload/rails.vim ~/.vim/autoload/'
+    cp_plugin: 'cp plugin/rails.vim ~/.vim/plugin/'
+    example: 'puts "Hi,This is example"'
