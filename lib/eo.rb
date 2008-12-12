@@ -23,6 +23,10 @@ class Eo
         self.update(args)
       end
 
+      opts.on("-c [ARGS]", "--choose","Choose Repository.") do |args|
+        self.choose(args)
+      end
+
       if !arguments.empty?
         opts.parse!(arguments)
       else
