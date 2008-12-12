@@ -22,13 +22,17 @@ class Eo
     end
 
     def help
-      #TODO Add
+      puts "  S <args> : Show All Repositories"
+      puts "  C <args> : Choose Some Repository"
+      puts "  U <args> : Update Repository"
+      puts "  Q        : Quit"
+      puts "  H        : Show this help message."
     end
 
     def show(*args)
       repos = pick(args,false)
       repos.each_index do |x|
-        printf "\e[32m%-2d\e[0m %-15s\t" % [x+1,repos[x].rstrip]
+        printf "\e[32m %-15s\t\e[0m" % [repos[x].rstrip]
         printf("\n") if (x+1)%4==0
       end
       printf "\n" if (repos.size + 1)%4 != 0
