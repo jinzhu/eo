@@ -8,7 +8,7 @@ class Eo
 
   def self.run
     loop do
-      printf("\e[33mInput Commands (q to quit| h for help) :\e[0m")
+      printf("\e[33mInput Commands (q to quit| h for help) : \e[0m")
       input = STDIN.gets.split(' ',2)
       input[1].strip!
       case input[0].to_s
@@ -23,9 +23,11 @@ class Eo
 
   def self.show(*args)
     repos = pick(args,false)
-    repos.each do |x|
-      puts x
+    repos.each_index do |x|
+      printf "\e[32m%-2d\e[0m %-15s\t" % [x+1,repos[x].rstrip]
+      printf("\n") if (x+1)%4==0
     end
+    printf "\n" if (repos.size + 1)%4 != 0
   end
 
   def self.choose(*args)
@@ -33,7 +35,8 @@ class Eo
     loop do
       printf("\e[01;34m#{repos.first} $ \e[0m")
       input = STDIN.gets.strip
-      break if input =~ /q/i
+      break if input =~ /\A\s*q\s*\Z/
+      exit if input =~ /\A\s*Q\s*\Z/
       Repo[repos.first].send(input)
     end
   end

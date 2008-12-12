@@ -2,7 +2,7 @@ class Scm < Hash
 
   def update
     Dir.chdir(File.expand_path(self['path']))
-    puts self['path']
+    puts "\e[31m" + self['path'] + "\e[0m"
 
     old_commit = `git log --pretty=format:%H -1` #TODO SVN
     system("git pull")
@@ -16,19 +16,21 @@ class Scm < Hash
 
   def shell
     Dir.chdir(File.expand_path(self['path']))
-    system("sh") #TODO source ~/.bashrc
+    system("sh")
   end
 
   alias sh shell
 
   def method_missing(m,*args)
+    Dir.chdir(File.expand_path(self['path']))
     m = m.to_s
     methods = self['cmd'].keys.grep(m)
 
     if methods.size == 1
-      eval self['cmd'][m]    #TODO shell git/svn commands
+      eval self['cmd'][m]
     else
-      puts "No Methods"
+      result = system(m + " " + args.join(' '))
+      puts "Some Wrong?" unless result
     end
   end
 end
