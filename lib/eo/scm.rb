@@ -1,5 +1,26 @@
 class Scm < Hash
 
+  def help
+    if self['cmd'] && cmd = self['cmd'].keys
+      printf("\e[33mYour Defined Methods\e[0m :\n")
+      cmd.each_index do |x|
+        puts "\e[32m%-18s:\e[0m %s" % [cmd[x].rstrip,self['cmd'][cmd[x]]]
+      end
+    end
+
+    puts "\e[33mUsage: \e[0m"
+    puts "\e[32m%-18s: \e[0m%s." % ["update","Update All Repositories"]
+    puts "\e[32m%-18s: \e[0m%s." % ["shell/sh","Goto the Repository's shell"]
+    puts "\e[32m%-18s: \e[0m%s." % ["help/h","Show this help message"]
+    puts "\e[32m%-18s: \e[0m%s." % ["q","quit this shell"]
+    puts "\e[32m%-18s: \e[0m%s." % ["Q","exit this program"]
+    puts "\e[32m%-18s: \e[0m%s." % ["<Hash Methods>","Run"]
+    puts "\e[32m%-18s: \e[0m%s." % ["<Your Methods>","Run.if undefined by above"]
+    puts "\e[32m%-18s: \e[0m%s." % ["<Shell Commands>","Run.if undefined by above"]
+
+  end
+  alias h help
+
   def update
     Dir.chdir(File.expand_path(self['path']))
     puts "\e[31m" + self['path'] + "\e[0m"
