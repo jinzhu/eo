@@ -11,17 +11,16 @@ class Eo
           Options are:
       BANNER
 
-      opts.on("-h", "--help","Show this help message.") do |args|
+      opts.on_tail("-h", "--help","Show this help message.") do |args|
         stdout.puts opts; exit
       end
 
-      opts.on("-v", "--version","Show version information.") do
-        puts Easyoperate::VERSION
+      opts.on_tail("-v", "--version","Show version information.") do
+        puts Easyoperate::VERSION; exit
       end
 
-      opts.on("-u", "--update","Update Repository.") do
-        #FIXME Update
-        #self.run
+      opts.on("-u [ARGS]", "--update","Update Repository.") do |args|
+        self.update(args)
       end
 
       if !arguments.empty?
