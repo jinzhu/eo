@@ -24,7 +24,7 @@ class Scm < Hash
   def method_missing(m,*args)
     Dir.chdir(File.expand_path(self['path']))
     m = m.to_s
-    methods = self['cmd'].keys.grep(m)
+    methods = self['cmd'] ? self['cmd'].keys.grep(m) : []
 
     if methods.size == 1
       eval self['cmd'][m]
