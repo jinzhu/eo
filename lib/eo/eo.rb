@@ -24,7 +24,9 @@ class Eo
   end
 
   def self.choose(*args)
-
+    repos = pick(args)
+    input = STDIN.gets.strip
+    Repo[repos.first].send(input)
   end
 
   def self.update(*args)
