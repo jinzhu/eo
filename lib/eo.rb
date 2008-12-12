@@ -1,8 +1,6 @@
-%w(optparse yaml).each {|f| require f}
+%w(optparse yaml eo/eo).each {|f| require f}
 
 class Eo
-
-  Config = YAML.load_file(File.join(ENV['HOME'],".eorc"))
 
   def self.execute(stdout, arguments=[])
 
@@ -21,10 +19,16 @@ class Eo
         puts Easyoperate::VERSION
       end
 
-#      opts.on("-u", "--update","Update Repository.") do
-#      end
+      opts.on("-u", "--update","Update Repository.") do
+        #FIXME Update
+        #self.run
+      end
 
-      opts.parse!(arguments)
+      if !arguments.empty?
+        opts.parse!(arguments)
+      else
+        self.run
+      end
     end
   end
 end
