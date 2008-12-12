@@ -5,11 +5,13 @@ $hoe = Hoe.new('easyoperate', Easyoperate::VERSION) do |p|
   p.developer('Jinzhu Zhang', 'wosmvp@gmail.com')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.rubyforge_name       = "EasyOperate"
+  p.url            = "http://www.zhangjinzhu.com"
+  p.description    = "Eo_oE"
 
   p.extra_dev_deps = [
     ['newgem', ">= #{::Newgem::VERSION}"]
   ]
-  
+
   p.clean_globs |= %w[tmp *.log]
   path = "\#{p.rubyforge_name}/\#{p.name}"
   p.remote_rdoc_dir = File.join(path.gsub(/^#{p.rubyforge_name}\/?/,''), 'rdoc')

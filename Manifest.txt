@@ -1,14 +1,12 @@
 History.txt
 Manifest.txt
-PostInstall.txt
 README.rdoc
 Rakefile
 bin/eo
 lib/easyoperate.rb
-lib/eo/cli.rb
-script/console
-script/destroy
-script/generate
+lib/eo.rb
+lib/eo/eo.rb
+lib/eo/scm.rb
 test/test_easyoperate.rb
 test/test_eo_cli.rb
 test/test_helper.rb
