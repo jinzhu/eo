@@ -72,17 +72,20 @@ class Eo
     end
 
     def choose_one(args)
-      puts "\e[32mPlease Choose One of them :\e[0m"
+      puts "\e[33mPlease Choose One of them : \e[0m"
+
       args.each_index do |x|
-        printf "%-3s" % (x+1).to_s
-        printf "\e[33m%-15s\e[0m\t" % [args[x].rstrip]
+        printf "\e[32m%-2d\e[0m %-15s\t" % [x+1,args[x].rstrip]
         printf "\n" if (x+1)%4 == 0
       end
+      printf "\n" if (args.size + 1)%4 != 0
+
       num = choose_range(args.size)
       return num ? [args[num-1]] : false
     end
 
     def choose_range(size)
+      printf "\e[33mPlease Input A Valid Number (1..#{size}) (q to quit): \e[0m"
       num = STDIN.gets
       return false if num =~ /q/i
       choosed_num = num.strip.empty? ? 1 : num.to_i
