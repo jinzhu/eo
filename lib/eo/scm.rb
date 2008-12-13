@@ -22,7 +22,6 @@ class Scm < Hash
   alias h help
 
   def update
-    Dir.chdir(File.expand_path(self['path']))
     puts "\e[31m" + self['path'] + "\e[0m"
 
     old_commit = now_commit
@@ -40,13 +39,11 @@ class Scm < Hash
   end
 
   def shell
-    Dir.chdir(File.expand_path(self['path']))
     system("sh")
   end
   alias sh shell
 
   def method_missing(m,*args)
-    Dir.chdir(File.expand_path(self['path']))
     m = m.to_s
     methods = self['cmd'] ? self['cmd'].keys.grep(m) : []
 
@@ -77,7 +74,7 @@ class Scm < Hash
    when /svn/ then return `svn -l 1 log -q | grep "\w" | awk '{print $1}'`
    else
      puts "\e[31mSorry,RightNow Only Support SVN/GIT\e[0m"
-     return false
+     exit
    end
   end
 end

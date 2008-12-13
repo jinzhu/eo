@@ -48,14 +48,15 @@ class Eo
     end
 
     def choose(*args)
-      repos = pick(args)
+      repos = pick(args).first
       if repos
+        return false unless exist_path(repos)
         loop do
           printf("\e[01;34m#{repos.first} $ \e[0m")
           input = STDIN.gets.strip
           break if input =~ /\A\s*q\s*\Z/
           exit if input =~ /\A\s*Q\s*\Z/
-          Repo[repos.first].send(input) unless input.empty?
+          Repo[repos].send(input) unless input.empty?
         end
       end
     end
@@ -63,6 +64,7 @@ class Eo
     def update(*args)
       repos = pick(args,false)
       repos.each do |x|
+        next unless exist_path(x)
         Repo[x].update
       end
     end
@@ -104,5 +106,15 @@ class Eo
       choosed_num = num.strip.empty? ? 1 : num.to_i
       (1..size).member?(choosed_num) ? (return choosed_num) : choose_range(size)
     end
+
+    def exist_path(repos)
+      if File.exist?(File.expand_path(Repo[repos]['path']))
+        Dir.chdir(File.expand_path(Repo[repos]['path']))
+      else
+        puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"
+        return false
+      end
+    end
+
   end
 end
