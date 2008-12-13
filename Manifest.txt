@@ -3,6 +3,7 @@ Manifest.txt
 README.rdoc
 Rakefile
 bin/eo
+example/eorc
 lib/easyoperate.rb
 lib/eo.rb
 lib/eo/eo.rb
