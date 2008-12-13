@@ -1,7 +1,7 @@
 = EasyOperate < eo >
 
 == INSTALL:
-  $ sudo gem install EasyOperate
+  $ sudo gem install easyoperate
 
 == Why && How To Use:
 ## ~/.eorc
