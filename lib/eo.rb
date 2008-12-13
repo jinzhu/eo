@@ -31,6 +31,10 @@ class Eo
         self.choose(args)
       end
 
+      opts.on("-i [ARGS]", "--init","Initialize Repository.") do |args|
+        self.init(args)
+      end
+
       if !arguments.empty?
         begin
           opts.parse!(arguments)

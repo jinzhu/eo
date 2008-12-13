@@ -43,6 +43,19 @@ class Scm < Hash
   end
   alias sh shell
 
+  def init
+    command = case self['scm']
+    when /svn/ then 'svn co'
+    when /git/ then 'git clone'
+    when nil   then 'git clone'
+    end
+    if command
+      system("#{command} #{self['repo']} #{self['path']}")
+    else
+      puts "\e[31mSorry,Maybe doesn't support #{self['scm']} rightnow.\e[0m"
+    end
+  end
+
   def method_missing(m,*args)
     m = m.to_s
     methods = self['cmd'] ? self['cmd'].keys.grep(m) : []

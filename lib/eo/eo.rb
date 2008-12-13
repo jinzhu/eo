@@ -6,7 +6,7 @@ class Eo
 
   unless File.exist?(Config_file)
     puts " \e[31m;( No config file\e[0m \n\nexample file:"
-    puts File.read(File.join(File.dirname(__FILE__),'..','..','example','eorc'))
+    puts File.read(File.join(File.dirname(__FILE__),'../../example/eorc'))
     exit
   end
 
@@ -24,6 +24,7 @@ class Eo
         when /S/i then show(input[1])
         when /C/i then choose(input[1])
         when /U/i then update(input[1])
+        when /I/i then init(input[1])
         when /Q/i then exit(0)
         else help
         end
@@ -34,6 +35,7 @@ class Eo
       puts "  S <args> : Show All Repositories"
       puts "  C <args> : Choose Some Repository"
       puts "  U <args> : Update Repository"
+      puts "  I <args> : Init Repository"
       puts "  Q        : Quit"
       puts "  H        : Show this help message."
     end
@@ -61,10 +63,22 @@ class Eo
       end
     end
 
+    def init(*args)
+      repos = pick(args,false)
+      repos.each do |x|
+        if File.exist?(File.expand_path(Repo[x]['path']))
+          puts "\e[32m %-18s: already Initialized\e[0m" % [x]
+          next
+        end
+        puts "\e[32 %-18s: Initializing\e[0m" % [x]
+        Repo[x].init
+      end
+    end
+
     def update(*args)
       repos = pick(args,false)
       repos.each do |x|
-        next unless exist_path(x)
+        next unless !exist_path(x)
         Repo[x].update
       end
     end
