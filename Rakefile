@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/lib/easyoperate'
 $hoe = Hoe.new('easyoperate', Easyoperate::VERSION) do |p|
   p.developer('Jinzhu Zhang', 'wosmvp@gmail.com')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
-  p.rubyforge_name       = "EasyOperate"
+  p.rubyforge_name       = "easyoperate"
   p.url            = "http://www.zhangjinzhu.com"
   p.description    = "Eo_oE"
 
