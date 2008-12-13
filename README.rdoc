@@ -15,4 +15,3 @@ Copyright (c) 2008 Jinzhu Zhang (GPL3)
 
 Web  :  http://www.zhangjinzhu.com
 Email:  wosmvp (no-spam) gmail (no-spam) com
-
