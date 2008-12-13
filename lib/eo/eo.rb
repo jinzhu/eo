@@ -1,7 +1,16 @@
 require 'eo/scm'
 class Eo
   Repo = Hash.new
-  YAML.load_file(File.join(ENV['HOME'],".eorc")).each_pair do |keys,value|
+
+  Config_file = File.join("#{ENV['HOME']}",".eorc")
+
+  unless File.exist?(Config_file)
+    puts " \e[31m;( No config file\e[0m \n\nexample file:"
+    puts File.read(File.join(File.dirname(__FILE__),'..','..','example','eorc'))
+    exit
+  end
+
+  YAML.load_file(Config_file).each_pair do |keys,value|
     Repo[keys] = Scm.new.merge(value)
   end
 
