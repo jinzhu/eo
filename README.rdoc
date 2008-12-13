@@ -3,7 +3,29 @@
 == INSTALL:
   $ sudo gem install EasyOperate
 
-== Usage:
+== Why && How To Use:
+## ~/.eorc
+  vim-rails:
+    path: ~/vim/vim-rails/ # Local path
+
+    repo: git://github.com/tpope/vim-rails.git # Remote path
+
+    autorun: 'puts "Thanks to Tim Pope";cp_autoload;cp_plugin'
+       # Splited by ';'  , when init or update,'autorun' will autorun
+
+    scm:   # svn/git,default is git
+
+    cmd:   # Where define your methods
+      cp_autoload: `cp autoload/rails.vim ~/.vim/autoload/`
+      cp_plugin: `cp plugin/rails.vim '~/.vim/plugin/`
+      example: 'puts "Hi,This is example method"'
+##
+  $ eo -i vim-rails => Clone vim-rails from github to the path your specify
+  $ eo -c vim-rails => Select vim-rails to operate
+  $ eo -u vim-rails => Update vim-rails
+  $ eo -u hi        => Update all repository match /hi/,nothing for all
+
+== More Help:
 
   <shell>
     $ eo -h    for help
