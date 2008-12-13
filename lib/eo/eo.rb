@@ -57,7 +57,7 @@ class Eo
       if repos && repos = repos.to_s
         return false unless exist_path(repos)
         loop do
-          printf("\e[01;34m#{repos.first} $ \e[0m")
+          printf("\e[01;34m#{repos.first} >> \e[0m")
           input = STDIN.gets.strip
           break if input =~ /\A\s*q\s*\Z/
           exit if input =~ /\A\s*Q\s*\Z/
