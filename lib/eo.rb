@@ -19,11 +19,11 @@ class Eo
         puts Easyoperate::VERSION; exit
       end
 
-      opts.on("-u [ARGS]", "--update","Update Repository.") do |args|
+      opts.on("-u [ARGS]", "--update","Update Repository. <Regexp>") do |args|
         self.update(args)
       end
 
-      opts.on("-s [ARGS]", "--show","Show All Repositories.") do |args|
+      opts.on("-s [ARGS]", "--show","Show All Repositories. <Regexp>") do |args|
         self.show(args)
       end
 
@@ -31,7 +31,7 @@ class Eo
         self.choose(args)
       end
 
-      opts.on("-i [ARGS]", "--init","Initialize Repository.") do |args|
+      opts.on("-i [ARGS]", "--init","Initialize Repository. <Regexp>") do |args|
         self.init(args)
       end
 

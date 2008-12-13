@@ -53,8 +53,8 @@ class Eo
     end
 
     def choose(*args)
-      repos = pick(args).first
-      if repos
+      repos = pick(args)
+      if repos && repos = repos.to_s
         return false unless exist_path(repos)
         loop do
           printf("\e[01;34m#{repos.first} $ \e[0m")
@@ -111,7 +111,7 @@ class Eo
         printf "\e[32m%-2d\e[0m %-15s\t" % [x+1,args[x].rstrip]
         printf "\n" if (x+1)%4 == 0
       end
-      printf "\n" if (args.size + 1)%4 != 0
+      printf "\n" if args.size%4 != 0
 
       num = choose_range(args.size)
       return num ? [args[num-1]] : false
