@@ -44,6 +44,7 @@ class Eo
 
     def show(*args)
       repos = pick(args,false)
+      puts "\e[33mAll Repo match < #{args} > :\e[0m"
       repos.each_index do |x|
         printf "\e[32m %-15s\t\e[0m" % [repos[x].rstrip]
         printf("\n") if (x+1)%4==0
@@ -80,6 +81,7 @@ class Eo
     def update(*args)
       repos = pick(args,false)
       repos.each do |x|
+        puts "\e[32mUpdating #{Repo[x]['path']} :\e[0m"
         next unless !exist_path(x)
         Repo[x].update
       end

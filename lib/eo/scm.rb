@@ -24,8 +24,6 @@ class Scm < Hash
   alias h help
 
   def update
-    puts "\e[31m" + self['path'] + "\e[0m"
-
     old_commit = now_commit
     scm_update
     new_commit = now_commit
