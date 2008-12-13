@@ -55,7 +55,7 @@ class Eo
           input = STDIN.gets.strip
           break if input =~ /\A\s*q\s*\Z/
           exit if input =~ /\A\s*Q\s*\Z/
-          Repo[repos.first].send(input)
+          Repo[repos.first].send(input) unless input.empty?
         end
       end
     end
