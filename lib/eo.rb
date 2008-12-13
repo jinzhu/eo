@@ -35,14 +35,14 @@ class Eo
         self.init(args)
       end
 
-      if !arguments.empty?
+      if arguments.empty?
+        self.run
+      else
         begin
           opts.parse!(arguments)
         rescue OptionParser::InvalidOption
           puts "\e[31m;(\tError\e[0m \n\tHelp?\t\e[33m$ eo -h \e[31m;)\e[0m"
         end
-      else
-        self.run
       end
     end
   end

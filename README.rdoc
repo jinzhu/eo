@@ -1,13 +1,18 @@
 = EasyOperate < eo >
+
 == INSTALL:
-* sudo gem install EasyOperate
+  $ sudo gem install EasyOperate
+
+== Usage:
+
+  <shell>
+    $ eo -h    for help
+  <program>
+    $ h        for help
 
 
+Copyright (c) 2008 Jinzhu Zhang (GPL3)
 
-(The GPL3 License)
-
-Copyright (c) 2008 Jinzhu Zhang 
-
-  http://www.zhangjinzhu.com
-  wosmvp (no-spam) gmail (no-spam) com
+Web  :  http://www.zhangjinzhu.com
+Email:  wosmvp (no-spam) gmail (no-spam) com
 

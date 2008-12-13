@@ -2,21 +2,23 @@ class Scm < Hash
 
   def help
     if self['cmd'] && cmd = self['cmd'].keys
-      printf("\e[33mYour Defined Methods\e[0m :\n")
+      printf("Your Defined Methods :\n")
       cmd.each_index do |x|
-        puts "\e[32m%-18s:\e[0m %s" % [cmd[x].rstrip,self['cmd'][cmd[x]]]
+        puts "  %-18s: %s" % [cmd[x].rstrip,self['cmd'][cmd[x]]]
       end
+      puts
     end
 
-    puts "\e[33mUsage: \e[0m"
-    puts "\e[32m%-18s: \e[0m%s." % ["update","Update All Repositories"]
-    puts "\e[32m%-18s: \e[0m%s." % ["shell/sh","Goto the Repository's shell"]
-    puts "\e[32m%-18s: \e[0m%s." % ["help/h","Show this help message"]
-    puts "\e[32m%-18s: \e[0m%s." % ["q","quit this shell"]
-    puts "\e[32m%-18s: \e[0m%s." % ["Q","exit this program"]
-    puts "\e[32m%-18s: \e[0m%s." % ["<Hash Methods>","Run"]
-    puts "\e[32m%-18s: \e[0m%s." % ["<Your Methods>","Run.if undefined by above"]
-    puts "\e[32m%-18s: \e[0m%s." % ["<Shell Commands>","Run.if undefined by above"]
+    puts "Usage: "
+    puts "  %-18s: %s." % ["update","Update"]
+    puts "  %-18s: %s." % ["shell/sh","Goto shell"]
+    puts "  %-18s: %s." % ["help/h","Show this help message"]
+    puts "  %-18s: %s." % ["q","Quit this shell"]
+    puts "  %-18s: %s." % ["Q","Exit this program"]
+    puts "  %-18s: %s." % ["<Hash Method>","Run"]
+    puts "  %-18s: %s." % ["<Your Method>","Run.if undefined by above"]
+    puts "  %-18s: %s." % ["<Shell Command>","Run.if undefined by above"]
+    puts "e.g:\n  \e[32m pwd \e[0m => The repository's path"
 
   end
   alias h help

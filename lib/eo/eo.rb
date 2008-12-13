@@ -32,12 +32,14 @@ class Eo
     end
 
     def help
-      puts "  S <args> : Show All Repositories"
-      puts "  C <args> : Choose Some Repository"
-      puts "  U <args> : Update Repository"
-      puts "  I <args> : Init Repository"
+      puts "Usage:"
+      puts "  S /args/ : Show matched repositories <Regexp>"
+      puts "  C /args/ : Choose Some Repository <Regexp>"
+      puts "  U /args/ : Update matched Repository <Regexp>"
+      puts "  I /args/ : Initialize matched Repository <Regexp>"
       puts "  Q        : Quit"
       puts "  H        : Show this help message."
+      puts "e.g:\n  \e[32m s v.*m\e[0m"
     end
 
     def show(*args)
@@ -46,7 +48,7 @@ class Eo
         printf "\e[32m %-15s\t\e[0m" % [repos[x].rstrip]
         printf("\n") if (x+1)%4==0
       end
-      printf "\n" if (repos.size + 1)%4 != 0
+      puts "\n" if repos.size%4 != 0
     end
 
     def choose(*args)
@@ -70,7 +72,7 @@ class Eo
           puts "\e[32m %-18s: already Initialized\e[0m" % [x]
           next
         end
-        puts "\e[32 %-18s: Initializing\e[0m" % [x]
+        puts "\e[32m %-18s: Initializing\e[0m" % [x]
         Repo[x].init
       end
     end
