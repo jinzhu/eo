@@ -6,7 +6,7 @@ class Eo
 
     parser = OptionParser.new do |opts|
       opts.banner = <<-BANNER.gsub(/^          /,'')
-          Usage: #{File.basename($0)} [options]
+          Usage: #{File.basename($0)} [options] [ARGS]
 
           Options are:
       BANNER
@@ -16,7 +16,7 @@ class Eo
       end
 
       opts.on_tail("-v", "--version","Show version information.") do
-        puts Easyoperate::VERSION; exit
+        puts "\e[33mEo_oE : v" + Easyoperate::VERSION + "\e[0m"; exit
       end
 
       opts.on("-u [ARGS]", "--update","Update Repository. <Regexp>") do |args|
@@ -27,7 +27,7 @@ class Eo
         self.show(args)
       end
 
-      opts.on("-c [ARGS]", "--choose","Choose Some Repository.") do |args|
+      opts.on("-c [ARGS]", "--choose","Choose Repository.") do |args|
         self.choose(args)
       end
 

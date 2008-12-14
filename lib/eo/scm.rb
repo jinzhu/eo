@@ -82,7 +82,7 @@ class Scm < Hash
    when /git/ then return `git log --pretty=format:%H -1`
    when /svn/ then return `svn -l 1 log -q | grep "\w" | awk '{print $1}'`
    else
-     puts "\e[31mSorry,RightNow Only Support SVN/GIT\e[0m"
+     puts "\e[31mSorry,Only Support SVN/GIT\e[0m"
      exit
    end
   end

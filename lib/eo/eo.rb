@@ -17,7 +17,7 @@ class Eo
   class << self
     def run
       loop do
-        printf("\e[33mInput Commands (q to quit| h for help) : \e[0m")
+        printf("\e[33mInput Commands (q:quit h:help): \e[0m")
         input = STDIN.gets.split(' ',2)
         input[1] ? input[1].strip! : next
 
@@ -35,7 +35,7 @@ class Eo
     def help
       puts "Usage:"
       puts "  S /args/ : Show matched repositories <Regexp>"
-      puts "  C /args/ : Choose Some Repository <Regexp>"
+      puts "  C /args/ : Choose One Repository <Regexp>"
       puts "  U /args/ : Update matched Repository <Regexp>"
       puts "  I /args/ : Initialize matched Repository <Regexp>"
       puts "  Q        : Quit"
@@ -58,7 +58,7 @@ class Eo
       if repos && repos = repos.to_s
         return false unless exist_path(repos)
         loop do
-          printf("\e[01;34m#{repos.first} >> \e[0m")
+          printf("\e[01;34m#{repos.first} (h:help)>> \e[0m")
           input = STDIN.gets.strip
           break if input =~ /\A\s*q\s*\Z/
           exit if input =~ /\A\s*Q\s*\Z/
@@ -82,7 +82,7 @@ class Eo
     def update(*args)
       repos = pick(args,false)
       repos.each do |x|
-        puts "\e[32mUpdating #{Repo[x]['path']}:\e[0m"
+        puts "\e[32m Updating #{Repo[x]['path']}:\e[0m"
         next if !exist_path(x)
         Repo[x].update
       end
