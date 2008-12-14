@@ -47,10 +47,10 @@ class Eo
       repos = pick(args,false)
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
       repos.each_index do |x|
-        printf "\e[32m %-12s\t\e[0m" % [repos[x].rstrip]
-        printf("\n") if (x+1)%4==0
+        printf "\e[32m %-22s\e[0m" % [repos[x].rstrip]
+        printf("\n") if (x+1)%3==0
       end
-      puts "\n" if repos.size%4 != 0
+      puts "\n" if repos.size%3 != 0
     end
 
     def choose(*args)
@@ -109,10 +109,10 @@ class Eo
       puts "\e[33mPlease Choose One of them : \e[0m"
 
       args.each_index do |x|
-        printf "\e[32m%-2d\e[0m %-12s\t" % [x+1,args[x].rstrip]
-        printf "\n" if (x+1)%4 == 0
+        printf "\e[32m%-2d\e[0m %-22s" % [x+1,args[x].rstrip]
+        printf "\n" if (x+1)%3 == 0
       end
-      printf "\n" if args.size%4 != 0
+      printf "\n" if args.size%3 != 0
 
       num = choose_range(args.size)
       return num ? [args[num-1]] : false
