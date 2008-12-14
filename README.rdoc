@@ -4,36 +4,46 @@
   $ sudo gem install easyoperate
 
 == Why && How To Use:
-## ~/.eorc
-  vim-rails:
-    path: ~/vim/vim-rails/ # Local path
 
-    repo: git://github.com/tpope/vim-rails.git # Remote path
+### ~/.eorc
+  vim-rails:
+    path: ~/vim/vim-rails/                        # Local path
+
+    repo: git://github.com/tpope/vim-rails.git    # Remote path
 
     autorun: 'puts "Thanks to Tim Pope";cp_autoload;cp_plugin'
-       # Splited by ';'  , when init or update,'autorun' will autorun
+            # Splited by ';'  , when init or update,this will autorun,
+            # first print "Thanks to Tim Pope"
+            # then  copy autoload/rails.vim to ~/.vim/autoload/
+            # then  copy plugin/rails.vim to ~/.vim/plugin/
 
-    scm:   # svn/git,default is git
+   scm:     # svn/git,default is git
 
-    cmd:   # Where define your methods
+   cmd:     # Where you can define your methods
       cp_autoload: `cp autoload/rails.vim ~/.vim/autoload/`
       cp_plugin: `cp plugin/rails.vim '~/.vim/plugin/`
       example: 'puts "Hi,This is example method"'
-##
-  $ eo -i vim-rails => Clone vim-rails from github to the path your specify
-  $ eo -c vim-rails => Select vim-rails to operate
+            # you can run example when choose vim-rails use $ eo -c vim-rails,
+            # will print "Hi,This is example method"
+
+### Other Commands:
+  $ eo -i vim-rails => initialise vim-rails:
+                         clone source from github to the path your specify
+  $ eo -c vim-rails => Select vim-rails
   $ eo -u vim-rails => Update vim-rails
-  $ eo -u hi        => Update all repository match /hi/,nothing for all
+                         run 'git pull' in vim-rails's path
+  $ eo -u           => Update all repository in ~/.eorc <Regexp>
 
-== More Help:
+== More Help ?
 
-  <shell>
+  <Shell>
     $ eo -h    for help
-  <program>
+  <Program>
     $ h        for help
 
 
-Copyright (c) 2008 Jinzhu Zhang (GPL3)
+Copyright (c) 2008  GPL3
 
-Web  :  http://www.zhangjinzhu.com
-Email:  wosmvp (no-spam) gmail (no-spam) com
+  Author : Jinzhu Zhang
+  Web    : http://www.zhangjinzhu.com
+  Email  : wosmvp (no-spam) gmail (no-spam) com
