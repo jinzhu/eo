@@ -82,7 +82,7 @@ class Eo
     def update(*args)
       repos = pick(args,false)
       repos.each do |x|
-        puts "\e[32mUpdating #{Repo[x]['path']} :\e[0m"
+        puts "\e[32mUpdating #{Repo[x]['path']}:\e[0m"
         next if !exist_path(x)
         Repo[x].update
       end

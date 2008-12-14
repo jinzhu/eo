@@ -27,13 +27,9 @@ class Scm < Hash
     old_commit = now_commit
     scm_update
     new_commit = now_commit
-    if new_commit == old_commit
-      puts "NO Update"
-    else
-      if self['autorun']
-        self['autorun'].split(';').each do |x|
-          eval x
-        end
+    if new_commit != old_commit && self['autorun']
+      self['autorun'].split(';').each do |x|
+        eval x
       end
     end
   end
