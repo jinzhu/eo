@@ -5,6 +5,10 @@
 
 require File.expand_path(File.dirname(__FILE__) + "/../lib/easyoperate")
 
+if ARGV.delete('-d')
+  ['rubygems','ruby-debug'].each {|x| require x}
+end
+
 require "eo"
 
 Eo.execute(STDOUT, ARGV)
