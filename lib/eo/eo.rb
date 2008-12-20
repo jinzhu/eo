@@ -1,6 +1,6 @@
-require 'eo/scm'
+require 'eo/repository'
 class Eo
-  Repo = Hash.new
+  Repos = Hash.new
 
   Config_file = File.join("#{ENV['HOME']}",".eorc")
 
@@ -10,8 +10,8 @@ class Eo
     exit
   end
 
-  YAML.load_file(Config_file).each_pair do |keys,value|
-    Repo[keys] = Scm.new.merge(value)
+  YAML.load_file(Config_file).each_pair do |key,value|
+    Repos[key] = Repository.new(:scm => value.delete('scm'),:name => key).merge!(value)
   end
 
   class << self
@@ -62,7 +62,7 @@ class Eo
           input = STDIN.gets.strip
           break if input =~ /\A\s*q\s*\Z/
           exit if input =~ /\A\s*Q\s*\Z/
-          Repo[repos].send(input) unless input.empty?
+          Repos[repos].send(input) unless input.empty?
         end
       end
     end
@@ -70,27 +70,27 @@ class Eo
     def init(*args)
       repos = pick(args,false)
       repos.each do |x|
-        if File.exist?(File.expand_path(Repo[x]['path']))
+        if File.exist?(File.expand_path(Repos[x]['path']))
           puts "\e[32m %-18s: already Initialized\e[0m" % [x]
           next
         end
         puts "\e[32m %-18s: Initializing\e[0m" % [x]
-        Repo[x].init
+        Repos[x].init
       end
     end
 
     def update(*args)
       repos = pick(args,false)
       repos.each do |x|
-        puts "\e[32m Updating #{Repo[x]['path']}:\e[0m"
+        puts "\e[32m Updating #{Repos[x]['path']}:\e[0m"
         next if !exist_path(x)
-        Repo[x].update
+        Repos[x].update
       end
     end
 
     protected
     def pick(args,only_one=true)
-      repos = Repo.keys.grep(/#{args}/)
+      repos = Repos.keys.grep(/#{args}/)
         if only_one
           if repos.size == 1
             return repos
@@ -127,8 +127,8 @@ class Eo
     end
 
     def exist_path(repos)
-      if File.exist?(File.expand_path(Repo[repos]['path']))
-        Dir.chdir(File.expand_path(Repo[repos]['path']))
+      if File.exist?(File.expand_path(Repos[repos]['path']))
+        Dir.chdir(File.expand_path(Repos[repos]['path']))
       else
         puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"
         return false
