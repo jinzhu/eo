@@ -1,11 +1,13 @@
-$LOAD_PATH << File.join(File.dirname(__FILE__),'scm')
+#$LOAD_PATH.unshift(File.join(File.dirname(__FILE__),'scm'))
 #FIXME only load scm ~/.eo/scm
 
 class Repository < Hash
   #TODO add macro
   def initialize(opt={})
     begin
-      require opt[:scm] ? opt[:scm] : 'git'
+      #require opt[:scm] ? opt[:scm] : 'git'
+      require File.join(File.dirname(__FILE__),'scm','git')
+      #FIXME find file,first ~/.eo/scm then above
       extend Scm
       #TODO Switch method_missing to define scm methods
     rescue LoadError

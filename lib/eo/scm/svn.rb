@@ -14,9 +14,7 @@ module Scm
     end
   end
 
-  protected
-
   def now_commit
-    `svn -l 1 log -q | grep "\w" | awk '{print $1}'`
+    return `svn -l 1 log -q | sed '1d;3d' | awk '{print $1}'`
   end
 end

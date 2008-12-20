@@ -14,9 +14,7 @@ module Scm
     end
   end
 
-  protected
-
   def now_commit
-   `git log --pretty=format:%H -1`
+    return `git log --pretty=format:%H -1`
   end
 end
