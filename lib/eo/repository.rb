@@ -1,8 +1,8 @@
 $LOAD_PATH << File.join(File.dirname(__FILE__),'scm')
-#FIXME only load scm ~/.eoscm
+#FIXME only load scm ~/.eo/scm
 
 class Repository < Hash
-
+  #TODO add macro
   def initialize(opt={})
     begin
       require opt[:scm] ? opt[:scm] : 'git'
