@@ -5,7 +5,7 @@ class Eo
   Config_file = File.join("#{ENV['HOME']}",".eorc")
 
   unless File.exist?(Config_file)
-    puts " \e[31m;( No config file\e[0m \n\nexample file:"
+    puts " \e[31m;(     No config file\e[0m \n\nExample Config file:\n\n"
     puts File.read(File.join(File.dirname(__FILE__),'../../example/eorc'))
     exit
   end
@@ -26,26 +26,29 @@ class Eo
         when /C/i then choose(input[1])
         when /U/i then update(input[1])
         when /I/i then init(input[1])
-        when /Q/i then exit(0)
+        when /Q/i then exit
         else help
         end
       end
     end
 
     def help
-      puts "Usage:"
-      puts "  S /args/ : Show matched repositories <Regexp>"
-      puts "  C /args/ : Choose One Repository <Regexp>"
-      puts "  U /args/ : Update matched Repository <Regexp>"
-      puts "  I /args/ : Initialize matched Repository <Regexp>"
-      puts "  Q        : Quit"
-      puts "  H        : Show this help message."
-      puts "e.g:\n  \e[32m s v.*m\e[0m"
+      puts <<-DOC.gsub(/^(\s*\|)/,'')
+      |Usage:
+      |  S /args/ : Show matched repositories <Regexp>
+      |  C /args/ : Choose One Repository <Regexp>
+      |  U /args/ : Update matched Repository <Regexp>
+      |  I /args/ : Initialize matched Repository <Regexp>
+      |  Q        : Quit
+      |  H        : Show this help message.
+      |e.g:\n  \e[32m s v.*m\e[0m
+      DOC
     end
 
     def show(*args)
       repos = pick(args,false)
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
+
       repos.each_index do |x|
         printf "\e[32m %-22s\e[0m" % [repos[x].rstrip]
         printf("\n") if (x+1)%3==0
@@ -119,7 +122,7 @@ class Eo
     end
 
     def choose_range(size)
-      printf "\e[33mPlease Input A Valid Number (1..#{size}) (q to quit): \e[0m"
+      printf "\e[33mPlease Input A Valid Number (1-#{size}) (q:quit): \e[0m"
       num = STDIN.gets
       return false if num =~ /q/i
       choosed_num = num.strip.empty? ? 1 : num.to_i
@@ -134,6 +137,5 @@ class Eo
         return false
       end
     end
-
   end
 end
