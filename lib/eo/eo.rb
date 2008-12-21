@@ -58,10 +58,11 @@ class Eo
 
     def choose(*args)
       repos = pick(args)
-      if repos && repos = repos.to_s
+
+      if repos && repos = repos.to_s    # Convert Array To String
         return false unless exist_path(repos)
         loop do
-          printf("\e[01;34m#{repos.first} (h:help)>> \e[0m")
+          printf("\e[01;34m#{repos} (h:help)>> \e[0m")
           input = STDIN.gets.strip
           break if input =~ /\A\s*q\s*\Z/
           exit if input =~ /\A\s*Q\s*\Z/
@@ -72,6 +73,7 @@ class Eo
 
     def init(*args)
       repos = pick(args,false)
+
       repos.each do |x|
         if File.exist?(File.expand_path(Repos[x].path))
           puts "\e[32m %-18s: already Initialized\e[0m" % [x]
@@ -84,6 +86,7 @@ class Eo
 
     def update(*args)
       repos = pick(args,false)
+
       repos.each do |x|
         puts "\e[32m Updating #{Repos[x].path}:\e[0m"
         next if !exist_path(x)
@@ -92,13 +95,13 @@ class Eo
     end
 
     protected
-    def pick(args,only_one=true)
+    def pick(args,single=true)
       repos = Repos.keys.grep(/#{args}/)
-        if only_one
+        if single
           if repos.size == 1
             return repos
           elsif repos.empty?
-            printf("\e[31mSorry,But No Result.\n\e[0m")
+            printf("\e[31mNo Result About < #{args} >.\n\e[0m")
             return false
           else
             return choose_one(repos)

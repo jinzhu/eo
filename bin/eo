@@ -11,4 +11,4 @@ end
 
 require "eo"
 
-Eo.execute(STDOUT, ARGV)
+Eo.execute(ARGV)

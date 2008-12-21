@@ -2,48 +2,26 @@
 
 class Eo
 
-  def self.execute(stdout, arguments=[])
+  def self.execute(args)
 
-    parser = OptionParser.new do |opts|
-      opts.banner = <<-BANNER.gsub(/^          /,'')
-          Usage: #{File.basename($0)} [options] [ARGS]
+    case args.first
+    when "-s" then self.show(args[1,args.size])
+    when "-c" then self.choose(args[1,args.size])
+    when "-i" then self.init(args[1,args.size])
+    when "-u" then self.update(args[1,args.size])
+    when "-v" then puts "\e[33mEo_oE : v" + Easyoperate::VERSION + "\e[0m"
+    when "-h" then
+      puts <<-DOC.gsub(/^(\s*\|)/,'')
+        |Usage: #{File.basename($0)} [options] [ARGS]
 
-          Options are:
-      BANNER
-
-      opts.on_tail("-h", "--help","Show this help message.") do |args|
-        stdout.puts opts; exit
-      end
-
-      opts.on_tail("-v", "--version","Show version information.") do
-        puts "\e[33mEo_oE : v" + Easyoperate::VERSION + "\e[0m"; exit
-      end
-
-      opts.on("-u [ARGS]", "--update","Update Repository. <Regexp>") do |args|
-        self.update(args)
-      end
-
-      opts.on("-s [ARGS]", "--show","Show All Repositories. <Regexp>") do |args|
-        self.show(args)
-      end
-
-      opts.on("-c [ARGS]", "--choose","Choose Repository.") do |args|
-        self.choose(args)
-      end
-
-      opts.on("-i [ARGS]", "--init","Initialize Repository. <Regexp>") do |args|
-        self.init(args)
-      end
-
-      if arguments.empty?
-        self.run
-      else
-        begin
-          opts.parse!(arguments)
-        rescue OptionParser::InvalidOption
-          puts "\e[31m;(\tError\e[0m \n\tHelp?\t\e[33m$ eo -h \e[31m;)\e[0m"
-        end
-      end
+        |Options are:
+        |  -u        Update Repository. <Regexp>
+        |  -s        Show All Repositories. <Regexp>
+        |  -v        Show version information.
+        |  -c        Choose Repository.
+        |  -i        Initialize Repository. <Regexp>
+      DOC
+    else self.run
     end
   end
 end
