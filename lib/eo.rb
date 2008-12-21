@@ -1,4 +1,4 @@
-%w(optparse yaml eo/eo).each {|f| require f}
+%w(yaml eo/eo).each {|f| require f}
 
 class Eo
 

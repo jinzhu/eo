@@ -1,4 +1,5 @@
-require 'eo/repository'
+require File.join(File.dirname(__FILE__),'repository')
+
 class Eo
   Repos = Hash.new
 
