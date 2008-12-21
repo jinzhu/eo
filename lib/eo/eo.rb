@@ -27,8 +27,8 @@ class Eo
         when /C/i then choose(input[1])
         when /U/i then update(input[1])
         when /I/i then init(input[1])
-        when /Q/i then exit
         when /T/i then type
+        when /Q/i then exit
         else help
         end
       end
@@ -41,6 +41,7 @@ class Eo
       |  C /args/ : Choose One Repository <Regexp>
       |  U /args/ : Update matched Repository <Regexp>
       |  I /args/ : Initialize matched Repository <Regexp>
+      |  T        : Show All Support Scm
       |  Q        : Quit
       |  H        : Show this help message.
       |e.g:\n  \e[32m s v.*m\e[0m

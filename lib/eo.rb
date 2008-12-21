@@ -20,6 +20,7 @@ class Eo
         |  -s        Show All Repositories. <Regexp>
         |  -v        Show version information.
         |  -c        Choose Repository.
+        |  -t        Show All Support Scm
         |  -i        Initialize Repository. <Regexp>
       DOC
     else self.run
