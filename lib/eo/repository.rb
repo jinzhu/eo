@@ -1,4 +1,6 @@
-class Repository < Hash
+$LOAD_PATH.unshift('~/.eo/scm/',File.join(File.dirname(__FILE__),'scm'))
+
+class Repository
   attr_accessor :repo,:path,:_name_,:autorun
 
   def initialize(opt={})
@@ -9,8 +11,8 @@ class Repository < Hash
 
     begin
       scm = opt['scm'] || 'git'
-      require File.join(File.dirname(__FILE__),'scm',scm)
-      extend Scm
+      require scm
+      extend eval "Scm::#{scm.capitalize}"
     rescue LoadError
       puts <<-DOC.gsub(/^(\s*\|)/,'')
         |\e[33m#{opt[:_name_]}\e[0m
