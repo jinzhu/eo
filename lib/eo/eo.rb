@@ -11,7 +11,7 @@ class Eo
   end
 
   YAML.load_file(Config_file).each_pair do |key,value|
-    Repos[key] = Repository.new(:scm => value.delete('scm'),:name => key).merge!(value)
+    Repos[key] = Repository.new(value.merge(:_name_ => key))
   end
 
   class << self

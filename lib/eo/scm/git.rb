@@ -7,8 +7,9 @@ module Scm
     old_commit = now_commit
     system("git pull")
     new_commit = now_commit
-    if new_commit != old_commit && self['autorun']
-      self['autorun'].split(';').each do |x|
+    debugger
+    if new_commit != old_commit && self.keys.include?('autorun')
+      self['autorun'].to_s.split(';').each do |x|
         eval x
       end
     end
