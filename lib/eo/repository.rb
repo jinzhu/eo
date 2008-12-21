@@ -17,6 +17,7 @@ class Repository
       puts <<-DOC.gsub(/^(\s*\|)/,'')
         |\e[33m#{opt[:_name_]}\e[0m
         |   \e[31mSorry,doesn't support < #{scm} > now.\e[0m
+        |   \e[31mYou can define your Scm-Type in ~/.eo/scm.\e[0m
         DOC
       exit 0
     end
