@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift('~/.eo/scm/',File.join(File.dirname(__FILE__),'scm'))
+$LOAD_PATH.unshift("#{ENV['HOME']}/.eo/scm/",File.join(File.dirname(__FILE__),'scm'))
 
 class Repository
   attr_accessor :repo,:path,:_name_,:autorun

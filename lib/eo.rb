@@ -9,6 +9,7 @@ class Eo
     when "-c" then self.choose(args[1,args.size])
     when "-i" then self.init(args[1,args.size])
     when "-u" then self.update(args[1,args.size])
+    when "-t" then self.type
     when "-v" then puts "\e[33mEo_oE : v" + Easyoperate::VERSION + "\e[0m"
     when "-h" then
       puts <<-DOC.gsub(/^(\s*\|)/,'')

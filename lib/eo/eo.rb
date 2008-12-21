@@ -28,6 +28,7 @@ class Eo
         when /U/i then update(input[1])
         when /I/i then init(input[1])
         when /Q/i then exit
+        when /T/i then type
         else help
         end
       end
@@ -46,15 +47,23 @@ class Eo
       DOC
     end
 
+    def type
+      ["#{ENV['HOME']}/.eo/scm/",File.join(File.dirname(__FILE__),'scm')].each do |x|
+        next if !File.exist?(x)
+        (@scm ||= []).concat(Dir.new(x).entries.reject {|i| i =~/^\.+$/})
+      end
+
+      puts "\e[33mAll Scm-type :\e[0m"
+      @scm.uniq.map do |x|
+        (@formated_scm ||= []) << File.basename(x,".rb")
+      end
+      format_display(@formated_scm)
+    end
+
     def show(*args)
       repos = pick(args,false)
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
-
-      repos.each_index do |x|
-        printf "\e[32m %-22s\e[0m" % [repos[x].rstrip]
-        printf("\n") if (x+1)%3==0
-      end
-      puts "\n" if repos.size%3 != 0
+      format_display(repos)
     end
 
     def choose(*args)
@@ -115,11 +124,7 @@ class Eo
     def choose_one(args)
       puts "\e[33mPlease Choose One of them : \e[0m"
 
-      args.each_index do |x|
-        printf "\e[32m%-2d\e[0m %-22s" % [x+1,args[x].rstrip]
-        printf "\n" if (x+1)%3 == 0
-      end
-      printf "\n" if args.size%3 != 0
+      format_display(args)
 
       num = choose_range(args.size)
       return num ? [args[num-1]] : false
@@ -140,6 +145,14 @@ class Eo
         puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"
         return false
       end
+    end
+
+    def format_display(args)
+      args.each_index do |x|
+        printf "\e[32m%-2d\e[0m %-22s" % [x+1,args[x].rstrip]
+        printf "\n" if (x+1)%3 == 0
+      end
+      puts "\n" if args.size%3 != 0
     end
   end
 end
