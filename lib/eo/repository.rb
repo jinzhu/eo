@@ -38,17 +38,18 @@ class Repository
       end
     end
 
-    puts "Usage: "
-    puts "  %-18s: %s." % ["update","Update"]
-    puts "  %-18s: %s." % ["shell/sh","Goto shell"]
-    puts "  %-18s: %s." % ["help/h","Show this help message"]
-    puts "  %-18s: %s." % ["q","Quit this shell"]
-    puts "  %-18s: %s." % ["Q","Exit this program"]
-    puts "  %-18s: %s." % ["<Hash Method>","Run"]
-    puts "  %-18s: %s." % ["<Your Method>","Run.if undefined by above"]
-    puts "  %-18s: %s." % ["<Shell Command>","Run.if undefined by above"]
-    puts "e.g:\n  \e[32m pwd \e[0m => The repository's path"
-
+    puts <<-DOC.gsub(/^\s*\|/,'')
+    |Usage:
+    |  update             Update
+    |  shell/sh           Goto shell
+    |  help/h             Show this help message
+    |  q                  Quit this shell
+    |  Q                  Exit this program
+    |  <Hash Method>      Run
+    |  <Your Method>      Run.if undefined by above
+    |  <Shell Command>    Run.if undefined by above
+    |e.g:\n  \e[32m pwd \e[0m => The repository's path
+    DOC
   end
   alias h help
 

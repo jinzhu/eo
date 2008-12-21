@@ -17,7 +17,7 @@
             # then  copy autoload/rails.vim to ~/.vim/autoload/
             # then  copy plugin/rails.vim to ~/.vim/plugin/
 
-   scm:     # svn/git,default is git
+   scm:     # Default is git,your can define your scm-type in ~/.eo/scm
 
    cmd:     # Where you can define your methods
       cp_autoload: `cp autoload/rails.vim ~/.vim/autoload/`
