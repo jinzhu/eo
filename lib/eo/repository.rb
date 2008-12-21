@@ -1,44 +1,38 @@
-#$LOAD_PATH.unshift(File.join(File.dirname(__FILE__),'scm'))
-#FIXME only load scm ~/.eo/scm
-#TODO add macro
-
 class Repository < Hash
-  attr_accessor :repo,:path,:_name_
+  attr_accessor :repo,:path,:_name_,:autorun
 
   def initialize(opt={})
-    begin
-      #require opt[:scm] ? opt[:scm] : 'git'
-      require File.join(File.dirname(__FILE__),'scm','git')
-      #FIXME find file,first ~/.eo/scm then above
-      extend Scm
-      #TODO Switch method_missing to define scm methods
-    rescue LoadError
-      puts <<-DOC.gsub(/^(\s*\|)/,'')
-        |\e[33m#{opt[:name]}\e[0m
-        |   \e[31mSorry,doesn't support < #{opt[:scm]} > now.\e[0m
-        DOC
-        #TODO -t for all support type
-      exit 0
+
+    ['repo','path','_name_','autorun'].each do |x|
+      eval "self.#{x} = opt.delete('#{x}')"
     end
 
-    ['repo','path','_name_'].each do |x|
-      eval "self.#{x} = opt.delete('#{x}')"
+    begin
+      scm = opt['scm'] || 'git'
+      require File.join(File.dirname(__FILE__),'scm',scm)
+      extend Scm
+    rescue LoadError
+      puts <<-DOC.gsub(/^(\s*\|)/,'')
+        |\e[33m#{opt[:_name_]}\e[0m
+        |   \e[31mSorry,doesn't support < #{scm} > now.\e[0m
+        DOC
+      exit 0
     end
 
     if opt['cmd']                   # Define Your Methods
       opt['cmd'].each do |key,value|
         self.class.send(:define_method, key, lambda { eval(value) } )
+        (@defined_methods ||= [] ) << [key,value]
       end
     end
   end
 
   def help
-    if self['cmd'] && cmd = self['cmd'].keys
+    if @defined_methods
       printf("Your Defined Methods :\n")
-      cmd.each_index do |x|
-        puts "  %-18s: %s" % [cmd[x].rstrip,self['cmd'][cmd[x]]]
+      @defined_methods.each do |x|
+        puts "  %-18s: %s" % [x.first, x.last]
       end
-      puts
     end
 
     puts "Usage: "

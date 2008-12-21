@@ -70,7 +70,7 @@ class Eo
     def init(*args)
       repos = pick(args,false)
       repos.each do |x|
-        if File.exist?(File.expand_path(Repos[x]['path']))
+        if File.exist?(File.expand_path(Repos[x].path))
           puts "\e[32m %-18s: already Initialized\e[0m" % [x]
           next
         end
@@ -82,7 +82,7 @@ class Eo
     def update(*args)
       repos = pick(args,false)
       repos.each do |x|
-        puts "\e[32m Updating #{Repos[x]['path']}:\e[0m"
+        puts "\e[32m Updating #{Repos[x].path}:\e[0m"
         next if !exist_path(x)
         Repos[x].update
       end
@@ -127,8 +127,8 @@ class Eo
     end
 
     def exist_path(repos)
-      if File.exist?(File.expand_path(Repos[repos]['path']))
-        Dir.chdir(File.expand_path(Repos[repos]['path']))
+      if File.exist?(File.expand_path(Repos[repos].path))
+        Dir.chdir(File.expand_path(Repos[repos].path))
       else
         puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"
         return false

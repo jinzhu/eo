@@ -1,14 +1,14 @@
 module Scm
   def init
-    system("svn co #{self['repo']} #{self['path']}")
+    system("svn co #{self.repo} #{self.path}")
   end
 
   def update
     old_commit = now_commit
     system("svn update")
     new_commit = now_commit
-    if new_commit != old_commit && self['autorun']
-      self['autorun'].split(';').each do |x|
+    if new_commit != old_commit && self.autorun
+      self.autorun.split(';').each do |x|
         eval x
       end
     end

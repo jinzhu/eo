@@ -1,15 +1,14 @@
 module Scm
   def init
-    system("git clone #{self['repo']} #{self['path']}")
+    system("git clone #{self.repo} #{self.path}")
   end
 
   def update
     old_commit = now_commit
     system("git pull")
     new_commit = now_commit
-    debugger
-    if new_commit != old_commit && self.keys.include?('autorun')
-      self['autorun'].to_s.split(';').each do |x|
+    if new_commit != old_commit && self.autorun
+      self.autorun.split(';').each do |x|
         eval x
       end
     end
