@@ -1,8 +1,10 @@
 #$LOAD_PATH.unshift(File.join(File.dirname(__FILE__),'scm'))
 #FIXME only load scm ~/.eo/scm
+#TODO add macro
 
 class Repository < Hash
-  #TODO add macro
+  attr_accessor :repo,:path,:_name_
+
   def initialize(opt={})
     begin
       #require opt[:scm] ? opt[:scm] : 'git'
@@ -18,7 +20,16 @@ class Repository < Hash
         #TODO -t for all support type
       exit 0
     end
-    super
+
+    ['repo','path','_name_'].each do |x|
+      eval "self.#{x} = opt.delete('#{x}')"
+    end
+
+    if opt['cmd']                   # Define Your Methods
+      opt['cmd'].each do |key,value|
+        self.class.send(:define_method, key, lambda { eval(value) } )
+      end
+    end
   end
 
   def help
@@ -50,14 +61,8 @@ class Repository < Hash
   alias sh shell
 
   def method_missing(m,*args)
-    m = m.to_s
-    methods = self['cmd'] ? self['cmd'].keys.grep(m) : []
-
-    if methods.size == 1
-      eval self['cmd'][m]
-    else
-      result = system(m + " " + args.join(' '))
-      puts "\e[31mlol, Some Wrong?\e[0m" unless result
-    end
+    # method missing -> shell command
+    result = system(m + " " + args.join(' '))
+    puts "\e[31mlol, Some Wrong?\e[0m" unless result
   end
 end
