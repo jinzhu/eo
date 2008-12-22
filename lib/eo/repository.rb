@@ -60,7 +60,7 @@ class Repository
 
   def method_missing(m,*args)
     # method missing -> shell command
-    result = system(m + " " + args.join(' '))
+    result = system(m.to_s + " " + args.join(' '))
     puts "\e[31mlol, Some Wrong?\e[0m" unless result
   end
 end
