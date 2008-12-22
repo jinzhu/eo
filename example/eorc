@@ -1,10 +1,15 @@
 # hack hack hack, rename to ~/.eorc
 vim-rails:
-  path: ~/vim/vim-rails/ # Local path
-  repo: git://github.com/tpope/vim-rails.git # Remote path
+  path: ~/vim/vim-rails/                                     # Local path
+  repo: git://github.com/tpope/vim-rails.git                 # Remote path
   autorun: 'puts "Thanks to Tim Pope";cp_autoload;cp_plugin' # Splited by ;
-  scm:   # svn/git,default is git
-  cmd:   # Where can define your methods
+  scm:   # default is git,you can define you scm-type in ~/.eo/scm
+         # you can get all scm-type with eo -t
+  cmd:   # define your methods
     cp_autoload: `cp autoload/rails.vim ~/.vim/autoload/`
     cp_plugin: `cp plugin/rails.vim '~/.vim/plugin/`
     example: 'puts "Hi,This is example method"'
+
+arch-linux-system:
+ cmd:
+   update: system('sudo pacman -Suy')
