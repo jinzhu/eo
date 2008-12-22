@@ -86,7 +86,7 @@ class Eo
       repos = pick(args,false)
 
       repos.each do |x|
-        if File.exist?(Repos[x].path)
+        if Repos[x].path && File.exist?(Repos[x].path)
           puts "\e[32m %-18s: already Initialized\e[0m" % [x]
           next
         end
