@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift("#{ENV['HOME']}/.eo/scm/",File.join(File.dirname(__FILE__),'scm'))
+$LOAD_PATH.unshift("#{ENV['HOME']}/.eo/",File.join(File.dirname(__FILE__)))
 
 class Repository
   attr_accessor :repo,:path,:_name_,:autorun
@@ -11,7 +11,7 @@ class Repository
 
     begin
       scm = opt['scm'] || 'git'
-      require scm
+      require "scm/#{scm.downcase}"
       extend eval "Scm::#{scm.capitalize}"
     rescue LoadError
       puts <<-DOC.gsub(/^(\s*\|)/,'')
