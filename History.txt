@@ -1,3 +1,8 @@
+== 0.2.0 2008-12-22
+
+* 1 major enhancement:
+  * Scm Plugin (Add your SCM Plugin to ~/.eo/scm )
+
 == 0.1.0 2008-12-13
 
 * 1 major enhancement:
