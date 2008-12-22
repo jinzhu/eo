@@ -12,7 +12,7 @@ class Eo
   end
 
   YAML.load_file(Config_file).each_pair do |key,value|
-    Repos[key] = Repository.new(value.merge(:_name_ => key))
+    Repos[key] = Repository.new(value.merge!("_name_" => key))
   end
 
   class << self
@@ -86,7 +86,7 @@ class Eo
       repos = pick(args,false)
 
       repos.each do |x|
-        if File.exist?(File.expand_path(Repos[x].path))
+        if File.exist?(Repos[x].path)
           puts "\e[32m %-18s: already Initialized\e[0m" % [x]
           next
         end
@@ -99,7 +99,7 @@ class Eo
       repos = pick(args,false)
 
       repos.each do |x|
-        puts "\e[32m Updating #{Repos[x].path}:\e[0m"
+        puts "\e[32m Updating #{Repos[x]._name_}:\e[0m"
         next if !exist_path(x)
         Repos[x].update
       end
@@ -140,11 +140,15 @@ class Eo
     end
 
     def exist_path(repos)
-      if File.exist?(File.expand_path(Repos[repos].path))
-        Dir.chdir(File.expand_path(Repos[repos].path))
+      if Repos[repos].path
+        if File.exist?(Repos[repos].path)
+          Dir.chdir(Repos[repos].path)
+        else
+          puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"
+          return false
+        end
       else
-        puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"
-        return false
+        return true
       end
     end
 

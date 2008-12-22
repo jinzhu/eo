@@ -4,8 +4,6 @@
 # Author: Jinzhu Zhang
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
-require "easyoperate"
-require "eo"
 
 # easy debug
 if ARGV.delete('-d')
@@ -13,5 +11,8 @@ if ARGV.delete('-d')
 else
   def debugger;end
 end
+
+require "easyoperate"
+require "eo"
 
 Eo.execute(ARGV)
