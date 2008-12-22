@@ -7,7 +7,9 @@ example/eorc
 lib/easyoperate.rb
 lib/eo.rb
 lib/eo/eo.rb
-lib/eo/scm.rb
+lib/eo/repository.rb
+lib/eo/scm/git.rb
+lib/eo/scm/svn.rb
 test/test_easyoperate.rb
 test/test_eo_cli.rb
 test/test_helper.rb
