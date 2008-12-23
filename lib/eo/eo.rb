@@ -20,7 +20,7 @@ class Eo
       loop do
         printf("\e[33mInput Commands (q:quit h:help): \e[0m")
         input = STDIN.gets.split(' ',2)
-        input[1] ? input[1].strip! : next
+        input[1].strip!
 
         case input[0].to_s
         when /S/i then show(input[1])
