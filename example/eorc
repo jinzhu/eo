@@ -10,6 +10,9 @@ vim-rails:
     cp_plugin: `cp plugin/rails.vim '~/.vim/plugin/`
     example: 'puts "Hi,This is example method"'
 
-arch-linux-system:
- cmd:
-   update: system('sudo pacman -Suy')
+  arch-linux:
+   cmd:
+     init:   system('sudo pacman -S $(cat ~/pkglist)')
+          # Install all software list in ~/pkglist
+     update: system('sudo pacman -Suy')
+          # Synchronizing package databases,Then upgrade System

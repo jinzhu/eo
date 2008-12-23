@@ -106,6 +106,7 @@ class Eo
     end
 
     protected
+    #Pick one or more repositories to operate,if single is true only pick one
     def pick(args,single=true)
       repos = Repos.keys.grep(/#{args}/)
         if single
@@ -142,6 +143,7 @@ class Eo
     def exist_path(repos)
       if Repos[repos].path
         if File.exist?(Repos[repos].path)
+          # Switch current path to the repository's path
           Dir.chdir(Repos[repos].path)
         else
           puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"

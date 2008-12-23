@@ -12,26 +12,35 @@
     repo: git://github.com/tpope/vim-rails.git    # Remote path
 
     autorun: 'puts "Thanks to Tim Pope";cp_autoload;cp_plugin'
-            # Splited by ';'  , when init or update,this will autorun,
-            # first print "Thanks to Tim Pope"
-            # then  copy autoload/rails.vim to ~/.vim/autoload/
-            # then  copy plugin/rails.vim to ~/.vim/plugin/
+          # Splited by ';'  , when init or update,this will autorun,
+          # first print "Thanks to Tim Pope"
+          # then  copy autoload/rails.vim to ~/.vim/autoload/
+          # then  copy plugin/rails.vim to ~/.vim/plugin/
 
-   scm:     # Default is git,your can define your scm-type in ~/.eo/scm
+   scm:   # Default is git,your can define your scm-type in ~/.eo/scm
 
-   cmd:     # Where you can define your methods
+   cmd:   # Where you can define your methods
       cp_autoload: `cp autoload/rails.vim ~/.vim/autoload/`
       cp_plugin: `cp plugin/rails.vim '~/.vim/plugin/`
       example: 'puts "Hi,This is example method"'
-            # you can run example when choose vim-rails use $ eo -c vim-rails,
-            # will print "Hi,This is example method"
+          # you can run 'example' when choose vim-rails use $ eo -c vim-rails,
+          # will print "Hi,This is example method"
+
+  arch-linux:
+   cmd:
+     init:   system('sudo pacman -S $(cat ~/pkglist)')
+            # Install all software list in ~/pkglist
+
+     update: system('sudo pacman -Suy')
+          # Synchronizing package databases,Then upgrade System
+
 
 ### Other Commands:
   $ eo -i vim-rails => initialise vim-rails:
-                         clone source from github to the path your specify
+                       clone source from github to the path your specify
   $ eo -c vim-rails => Select vim-rails
   $ eo -u vim-rails => Update vim-rails
-                         run 'git pull' in vim-rails's path
+                       run 'git pull' in vim-rails's path
   $ eo -u           => Update all repository in ~/.eorc <Regexp>
 
 == More Help ?
