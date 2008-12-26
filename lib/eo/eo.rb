@@ -23,12 +23,14 @@ class Eo
         input[1].strip!
 
         case input[0].to_s
-        when /S/i then show(input[1])
-        when /C/i then choose(input[1])
-        when /U/i then update(input[1])
-        when /I/i then init(input[1])
-        when /T/i then type
-        when /Q/i then exit
+        when /GS/i then gemshow(input[1])
+        when /GC/i then gemshow(input[1])
+        when /S/i  then show(input[1])
+        when /C/i  then choose(input[1])
+        when /U/i  then update(input[1])
+        when /I/i  then init(input[1])
+        when /T/i  then type
+        when /Q/i  then exit
         else help
         end
       end
@@ -37,11 +39,13 @@ class Eo
     def help
       puts <<-DOC.gsub(/^(\s*\|)/,'')
       |Usage:
+      |  I /args/ : Initialize matched Repository <Regexp>
+      |  U /args/ : Update matched Repository <Regexp>
+      |  T        : Show All Support Scm
       |  S /args/ : Show matched repositories <Regexp>
       |  C /args/ : Choose One Repository <Regexp>
-      |  U /args/ : Update matched Repository <Regexp>
-      |  I /args/ : Initialize matched Repository <Regexp>
-      |  T        : Show All Support Scm
+      | GS /args/ : Show matched Gems <Regexp>
+      | GC /args/ : Choose One Gem <Regexp>
       |  Q        : Quit
       |  H        : Show this help message.
       |e.g:\n  \e[32m s v.*m\e[0m
@@ -59,6 +63,29 @@ class Eo
         (@formated_scm ||= []) << File.basename(x,".rb")
       end
       format_display(@formated_scm)
+    end
+
+    def gemshow(args)
+      puts "\e[33mAll Gems match < #{args} > :\e[0m"
+      format_display(scangem(args))
+    end
+
+    def gemchoose(args)
+      gem = choose_one(scangem(args))
+      if gem
+        filepath = `gem content #{gem} | sed -n 1p`
+        Dir.chdir(filepath.match(/(.*?\w-\d.*?\/)/).to_s)
+        system('sh')
+      end
+    end
+
+    def scangem(args)
+      result = []
+      gemlist = `gem list | grep '#{args}'`
+      gemlist.scan(/^(\w.*?)\s/) do
+        result << $1
+      end
+      return result
     end
 
     def show(*args)
