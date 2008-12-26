@@ -43,7 +43,7 @@
                        run 'git pull' in vim-rails's path
   $ eo -u           => Update all repository in ~/.eorc <Regexp>
 
-== More Help ?
+== More Help ?!
 
   <Shell>
     $ eo -h    for help
