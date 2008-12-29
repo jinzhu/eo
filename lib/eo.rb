@@ -1,4 +1,4 @@
-%w(yaml eo/eo).each {|f| require f}
+%w(yaml eo/repository eo/gem eo/eo).each {|f| require f}
 
 class Eo
 

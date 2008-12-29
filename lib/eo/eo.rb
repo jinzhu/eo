@@ -1,8 +1,5 @@
-%w(eo/repository eo/gem eo/eo).each {|f| require f}
-
 class Eo
   extend Gem
-
   Repos = Hash.new
 
   Config_file = File.join("#{ENV['HOME']}",".eorc")
