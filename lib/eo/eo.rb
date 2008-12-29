@@ -19,17 +19,17 @@ class Eo
       loop do
         printf("\e[33mInput Commands (q:quit h:help): \e[0m")
         input = STDIN.gets.split(' ',2)
-        input[1].strip!
+        args = input[1] ? input[1].strip! : ''
 
         case input[0].to_s
-        when /GS/i then gemshow(input[1])
-        when /GC/i then gemshell(input[1])
-        when /GO/i then gemopen(input[1])
-        when /S/i  then show(input[1])
-        when /O/i  then open(input[1])
-        when /C/i  then choose(input[1])
-        when /U/i  then update(input[1])
-        when /I/i  then init(input[1])
+        when /GS/i then gemshow(args)
+        when /GC/i then gemshell(args)
+        when /GO/i then gemopen(args)
+        when /S/i  then show(args)
+        when /O/i  then open(args)
+        when /C/i  then choose(args)
+        when /U/i  then update(args)
+        when /I/i  then init(args)
         when /T/i  then type
         when /Q/i  then exit
         else help
