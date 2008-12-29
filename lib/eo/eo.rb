@@ -108,7 +108,7 @@ class Eo
 
     def open(args)
       repos = pick(args)
-      system("vi #{Repos[repos.to_s].path}")
+      system("vi #{Repos[repos.to_s].path}") if repos
     end
 
     def choose(*args)
