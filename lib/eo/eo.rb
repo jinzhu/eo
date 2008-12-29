@@ -69,18 +69,12 @@ class Eo
     #Pick one or more repositories to operate,if single is true only pick one
     def pick(args,single=true)
       repos = Repos.keys.grep(/#{args}/)
-        if single
-          if repos.size == 1
-            return repos
-          elsif repos.empty?
-            printf("\e[31mNo Result About < #{args} >.\n\e[0m")
-            return false
-          else
-            return choose_one(repos)
-          end
-        else
-          return repos
-        end
+      if repos.empty?
+        printf("\e[31mNo Result About < #{args} >.\n\e[0m")
+        return false
+      else
+        return single ? choose_one(repos) : repos
+      end
     end
 
     def choose_one(args)
@@ -109,9 +103,8 @@ class Eo
           puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"
           return false
         end
-      else
-        return true
       end
+      return true
     end
 
     def format_display(args)
