@@ -5,21 +5,16 @@ module Gem
   end
 
   def gemopen(args)
-    gem = choose_one(scangem(args))
-    if gem
-      filepath = `gem content #{gem} | sed -n 1p`
-      system("vi #{filepath.match(/(.*?\w-\d.*?\/)/).to_s}")
-    end
+    path = gempick(args)
+    system("vi #{path}") if path
   end
 
-  def gemchoose(args)
-    gem = choose_one(scangem(args))
-    if gem
-      filepath = `gem content #{gem} | sed -n 1p`
-      Dir.chdir(filepath.match(/(.*?\w-\d.*?\/)/).to_s)
-      system('sh')
-    end
+  def gemshell(args)
+    path = gempick(args)
+    system("cd #{path} && sh") if path
   end
+
+  protected
 
   def scangem(args)
     result = []
@@ -28,5 +23,15 @@ module Gem
       result << $1
     end
     return result
+  end
+
+  def gempick(args)
+    gems = scangem(args)
+    if gems.size > 0
+      gem = choose_one(gems)
+      gem ? `gem content #{gem} | sed -n 1p`.match(/(.*?\w-\d.*?\/)/) : false
+    else
+      return false
+    end
   end
 end

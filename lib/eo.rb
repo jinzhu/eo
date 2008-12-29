@@ -6,7 +6,7 @@ class Eo
 
     case args.first
     when "-gs" then self.gemshow(args[1,args.size])
-    when "-gc" then self.gemchoose(args[1,args.size])
+    when "-gc" then self.gemshell(args[1,args.size])
     when "-go" then self.gemopen(args[1,args.size])
     when "-s"  then self.show(args[1,args.size])
     when "-o"  then self.open(args[1,args.size])

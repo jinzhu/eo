@@ -23,7 +23,7 @@ class Eo
 
         case input[0].to_s
         when /GS/i then gemshow(input[1])
-        when /GC/i then gemchoose(input[1])
+        when /GC/i then gemshell(input[1])
         when /GO/i then gemopen(input[1])
         when /S/i  then show(input[1])
         when /O/i  then open(input[1])
