@@ -16,9 +16,9 @@ class Eo
     end
 
     def show(*args)
-      repos = pick(args,false)
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
-      format_display(repos)
+      repos = pick(args,false)
+      format_display(repos) if repos
     end
 
     def open(args)
