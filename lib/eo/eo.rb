@@ -1,6 +1,8 @@
-require File.join(File.dirname(__FILE__),'repository')
+%w(eo/repository eo/gem eo/eo).each {|f| require f}
 
 class Eo
+  extend Gem
+
   Repos = Hash.new
 
   Config_file = File.join("#{ENV['HOME']}",".eorc")
@@ -67,37 +69,6 @@ class Eo
         (@formated_scm ||= []) << File.basename(x,".rb")
       end
       format_display(@formated_scm)
-    end
-
-    def gemshow(args)
-      puts "\e[33mAll Gems match < #{args} > :\e[0m"
-      format_display(scangem(args))
-    end
-
-    def gemopen(args)
-      gem = choose_one(scangem(args))
-      if gem
-        filepath = `gem content #{gem} | sed -n 1p`
-        system("vi #{filepath.match(/(.*?\w-\d.*?\/)/).to_s}")
-      end
-    end
-
-    def gemchoose(args)
-      gem = choose_one(scangem(args))
-      if gem
-        filepath = `gem content #{gem} | sed -n 1p`
-        Dir.chdir(filepath.match(/(.*?\w-\d.*?\/)/).to_s)
-        system('sh')
-      end
-    end
-
-    def scangem(args)
-      result = []
-      gemlist = `gem list | grep '#{args}'`
-      gemlist.scan(/^(\w.*?)\s/) do
-        result << $1
-      end
-      return result
     end
 
     def show(*args)
