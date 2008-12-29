@@ -18,18 +18,17 @@ class Eo
     def run
       loop do
         printf("\e[33mInput Commands (q:quit h:help): \e[0m")
-        input = STDIN.gets.split(' ',2)
-        args = input[1] ? input[1].strip! : ''
+        input = (STDIN.gets || exit).rstrip.split(' ',2)
 
         case input[0].to_s
-        when /GS/i then gemshow(args)
-        when /GC/i then gemshell(args)
-        when /GO/i then gemopen(args)
-        when /S/i  then show(args)
-        when /O/i  then open(args)
-        when /C/i  then choose(args)
-        when /U/i  then update(args)
-        when /I/i  then init(args)
+        when /GS/i then gemshow(input[1])
+        when /GC/i then gemshell(input[1])
+        when /GO/i then gemopen(input[1])
+        when /S/i  then show(input[1])
+        when /O/i  then open(input[1])
+        when /C/i  then choose(input[1])
+        when /U/i  then update(input[1])
+        when /I/i  then init(input[1])
         when /T/i  then type
         when /Q/i  then exit
         else help
@@ -86,7 +85,8 @@ class Eo
         return false unless exist_path(repos)
         loop do
           printf("\e[01;34m#{repos} (h:help)>> \e[0m")
-          input = STDIN.gets.strip
+          input = (STDIN.gets || exit).rstrip
+
           break if input =~ /\A\s*q\s*\Z/
           exit if input =~ /\A\s*Q\s*\Z/
           Repos[repos].send(input) unless input.empty?
@@ -146,7 +146,7 @@ class Eo
 
     def choose_range(size)
       printf "\e[33mPlease Input A Valid Number (1-#{size}) (q:quit): \e[0m"
-      num = STDIN.gets
+      num = STDIN.gets || exit
       return false if num =~ /q/i
       choosed_num = num.strip.empty? ? 1 : num.to_i
       (1..size).member?(choosed_num) ? (return choosed_num) : choose_range(size)
