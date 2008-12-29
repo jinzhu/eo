@@ -3,17 +3,11 @@
 class Eo
   Repos = Hash.new
 
-  Config_file = File.join("#{ENV['HOME']}",".eorc")
+  config_file = File.join("#{ENV['HOME']}",".eorc")
 
-  unless File.exist?(Config_file)
-    puts " \e[31m;(     No config file\e[0m \n\nExample Config file:\n\n"
-    puts File.read(File.join(File.dirname(__FILE__),'../../example/eorc'))
-    exit
-  end
-
-  YAML.load_file(Config_file).each_pair do |key,value|
+  YAML.load_file(config_file).each_pair do |key,value|
     Repos[key] = Repository.new(value.merge!("_name_" => key))
-  end
+  end if File.exist?(config_file)
 
   class << self
     def execute(args)

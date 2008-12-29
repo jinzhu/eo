@@ -3,12 +3,13 @@ class Eo
 
   class << self
     def type
-      ["#{ENV['HOME']}/.eo/scm/",File.join(File.dirname(__FILE__),'scm')].each do |x|
+      puts "\e[33mAll Scm-type :\e[0m"
+
+      ["#{ENV['HOME']}/.eo/scm/",File.dirname(__FILE__) + '/scm' ].each do |x|
         next if !File.exist?(x)
         (@scm ||= []).concat(Dir.new(x).entries.reject {|i| i =~/^\.+$/})
       end
 
-      puts "\e[33mAll Scm-type :\e[0m"
       @scm.uniq.map do |x|
         (@formated_scm ||= []) << File.basename(x,".rb")
       end
@@ -17,7 +18,7 @@ class Eo
 
     def show(*args)
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
-      repos = pick(args,false)
+      repos = pick(args,false)     # single:false  => allow choose many
       format_display(repos) if repos
     end
 
@@ -48,10 +49,10 @@ class Eo
       repos.each do |x|
         if Repos[x].path && File.exist?(Repos[x].path)
           puts "\e[32m %-18s: already Initialized\e[0m" % [x]
-          next
+        else
+          puts "\e[32m %-18s: Initializing\e[0m" % [x]
+          Repos[x].init
         end
-        puts "\e[32m %-18s: Initializing\e[0m" % [x]
-        Repos[x].init
       end
     end
 
@@ -79,7 +80,6 @@ class Eo
 
     def choose_one(args)
       puts "\e[33mPlease Choose One of them : \e[0m"
-
       format_display(args)
 
       num = choose_range(args.size)
@@ -90,14 +90,17 @@ class Eo
       printf "\e[33mPlease Input A Valid Number (1-#{size}) (q:quit): \e[0m"
       num = STDIN.gets || exit
       return false if num =~ /q/i
-      choosed_num = num.strip.empty? ? 1 : num.to_i
-      (1..size).member?(choosed_num) ? (return choosed_num) : choose_range(size)
+      num = num.strip.empty? ? 1 : num.to_i
+      return (1..size).member?(num) ? num : choose_range(size)
     end
 
+    # If have path method
+    # and the directory exist,switch current path to the repository's path
+    # if doesn't exist then return false
+    # if doesn't have path method return true
     def exist_path(repos)
       if Repos[repos].path
         if File.exist?(Repos[repos].path)
-          # Switch current path to the repository's path
           Dir.chdir(Repos[repos].path)
         else
           puts "\n l.l,Have You init \e[33m#{repos}\e[0m Repository?\n\n"
