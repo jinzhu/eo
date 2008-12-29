@@ -15,6 +15,18 @@ module Gem
   end
 
   protected
+  def gempick(args)
+    gems = scangem(args)
+    if gems.size > 0
+      gem = choose_one(gems)
+      if gem
+	puts "\e[34m#{gem}\e[0m"
+	# Got The Gem's Path
+	return `gem content #{gem} | sed -n 1p`.match(/(.*?\w-\d.*?\/)/)
+      end
+    end
+    return false
+  end
 
   def scangem(args)
     result = []
@@ -23,15 +35,5 @@ module Gem
       result << $1
     end
     return result
-  end
-
-  def gempick(args)
-    gems = scangem(args)
-    if gems.size > 0
-      gem = choose_one(gems)
-      gem ? `gem content #{gem} | sed -n 1p`.match(/(.*?\w-\d.*?\/)/) : false
-    else
-      return false
-    end
   end
 end
