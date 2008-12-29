@@ -25,7 +25,9 @@ class Eo
         case input[0].to_s
         when /GS/i then gemshow(input[1])
         when /GC/i then gemchoose(input[1])
+        when /GO/i then gemopen(input[1])
         when /S/i  then show(input[1])
+        when /O/i  then open(input[1])
         when /C/i  then choose(input[1])
         when /U/i  then update(input[1])
         when /I/i  then init(input[1])
@@ -40,12 +42,14 @@ class Eo
       puts <<-DOC.gsub(/^(\s*\|)/,'')
       |Usage:
       |  I /args/ : Initialize matched Repository <Regexp>
-      |  U /args/ : Update matched Repository <Regexp>
+      |  U /args/ : Update matched Repository     <Regexp>
       |  T        : Show All Support Scm
-      |  S /args/ : Show matched repositories <Regexp>
-      |  C /args/ : Choose One Repository <Regexp>
-      | GS /args/ : Show matched Gems <Regexp>
-      | GC /args/ : Choose One Gem <Regexp>
+      |  S /args/ : Show matched repositories     <Regexp>
+      |  O /args/ : Open The repository's path    <Regexp>
+      |  C /args/ : Choose One Repository         <Regexp>
+      | GS /args/ : Show matched Gems             <Regexp>
+      | GC /args/ : Choose One Gem                <Regexp>
+      | GO /args/ : Open The Gem's Path           <Regexp>
       |  Q        : Quit
       |  H        : Show this help message.
       |e.g:\n  \e[32m s v.*m\e[0m
@@ -70,6 +74,14 @@ class Eo
       format_display(scangem(args))
     end
 
+    def gemopen(args)
+      gem = choose_one(scangem(args))
+      if gem
+        filepath = `gem content #{gem} | sed -n 1p`
+        system("vi #{filepath.match(/(.*?\w-\d.*?\/)/).to_s}")
+      end
+    end
+
     def gemchoose(args)
       gem = choose_one(scangem(args))
       if gem
@@ -92,6 +104,11 @@ class Eo
       repos = pick(args,false)
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
       format_display(repos)
+    end
+
+    def open(args)
+      repos = pick(args)
+      system("vi #{Repos[repos.to_s].path}")
     end
 
     def choose(*args)
