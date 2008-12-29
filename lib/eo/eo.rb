@@ -168,7 +168,10 @@ class Eo
 
     def format_display(args)
       args.each_index do |x|
-        printf "\e[32m%-2d\e[0m %-22s" % [x+1,args[x].rstrip]
+        # truncate
+        str = args[x].rstrip
+        str = str.size > 23 ? str[0,21] + '..' : str
+        printf "\e[32m%-3d\e[0m%-23s" % [x+1,str]
         printf "\n" if (x+1)%3 == 0
       end
       puts "\n" if args.size%3 != 0
