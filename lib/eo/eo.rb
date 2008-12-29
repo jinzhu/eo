@@ -1,59 +1,7 @@
 class Eo
   extend Gem
-  Repos = Hash.new
-
-  Config_file = File.join("#{ENV['HOME']}",".eorc")
-
-  unless File.exist?(Config_file)
-    puts " \e[31m;(     No config file\e[0m \n\nExample Config file:\n\n"
-    puts File.read(File.join(File.dirname(__FILE__),'../../example/eorc'))
-    exit
-  end
-
-  YAML.load_file(Config_file).each_pair do |key,value|
-    Repos[key] = Repository.new(value.merge!("_name_" => key))
-  end
 
   class << self
-    def run
-      loop do
-        printf("\e[33mInput Commands (q:quit h:help): \e[0m")
-        input = (STDIN.gets || exit).rstrip.split(' ',2)
-
-        case input[0].to_s
-        when /GS/i then gemshow(input[1])
-        when /GC/i then gemshell(input[1])
-        when /GO/i then gemopen(input[1])
-        when /S/i  then show(input[1])
-        when /O/i  then open(input[1])
-        when /C/i  then choose(input[1])
-        when /U/i  then update(input[1])
-        when /I/i  then init(input[1])
-        when /T/i  then type
-        when /Q/i  then exit
-        else help
-        end
-      end
-    end
-
-    def help
-      puts <<-DOC.gsub(/^(\s*\|)/,'')
-      |Usage:
-      |  I /args/ : Initialize matched Repository <Regexp>
-      |  U /args/ : Update matched Repository     <Regexp>
-      |  T        : Show All Support Scm
-      |  S /args/ : Show matched repositories     <Regexp>
-      |  O /args/ : Open The repository's path    <Regexp>
-      |  C /args/ : Choose One Repository         <Regexp>
-      | GS /args/ : Show matched Gems             <Regexp>
-      | GC /args/ : Choose One Gem                <Regexp>
-      | GO /args/ : Open The Gem's Path           <Regexp>
-      |  Q        : Quit
-      |  H        : Show this help message.
-      |e.g:\n  \e[32m s v.*m\e[0m
-      DOC
-    end
-
     def type
       ["#{ENV['HOME']}/.eo/scm/",File.join(File.dirname(__FILE__),'scm')].each do |x|
         next if !File.exist?(x)
