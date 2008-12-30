@@ -1,0 +1,17 @@
+Manifest
+test/test_helper.rb
+test/test_eo_cli.rb
+test/test_easyoperate.rb
+bin/eo
+example/config
+example/repos
+Rakefile
+History.txt
+lib/eo.rb
+lib/easyoperate.rb
+lib/eo/scm/git.rb
+lib/eo/scm/svn.rb
+lib/eo/eo.rb
+lib/eo/repository.rb
+lib/eo/gem.rb
+README.rdoc
