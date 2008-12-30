@@ -24,7 +24,7 @@ class Eo
 
     def open(args)
       repos = pick(args)
-      system("vi #{Repos[repos.to_s].path}") if repos
+      system([Config['open'],Repos[repos.to_s].path].join(' ')) if repos
     end
 
     def choose(*args)

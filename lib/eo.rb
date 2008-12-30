@@ -3,11 +3,16 @@
 class Eo
   Repos = Hash.new
 
-  config_file = File.join("#{ENV['HOME']}",".eorc")
+  config_file = File.join("#{ENV['HOME']}",".eo/config")
+  repos_file = File.join("#{ENV['HOME']}",".eorc")
 
-  YAML.load_file(config_file).each_pair do |key,value|
+  Config = {'open'  => 'vim'}.merge(
+    File.exist?(config_file) ? YAML.load_file(config_file) : {}
+  )
+
+  YAML.load_file( repos_file ).each_pair do |key,value|
     Repos[key] = Repository.new(value.merge!("_name_" => key))
-  end if File.exist?(config_file)
+  end if File.exist?( repos_file )
 
   class << self
     def execute(args)

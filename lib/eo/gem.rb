@@ -6,7 +6,7 @@ module Gem
 
   def gemopen(args)
     path = gempick(args)
-    system("vi #{path}") if path
+    system([Eo::Config['open'],path].join(' ')) if path
   end
 
   def gemshell(args)
