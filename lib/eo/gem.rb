@@ -1,7 +1,7 @@
 module Gem
   def gemshow(args)
-    puts "\e[33mAll Gems match < #{args} > :\e[0m"
-    format_display(scangem(args))
+    gems = scangem(args)
+    format_display(gems) if gems
   end
 
   def gemopen(args)
@@ -16,24 +16,19 @@ module Gem
 
   protected
   def gempick(args)
-    gems = scangem(args)
-    if gems.size > 0
-      gem = choose_one(gems)
-      if gem
-	puts "\e[34m#{gem}\e[0m"
-	# Got The Gem's Path
-	return `gem content #{gem} | sed -n 1p`.match(/(.*?\w-\d.*?\/)/)
-      end
-    end
-    return false
+    gem = choose_one( scangem(args) )
+    # Got The Gem's Path
+    gem ? `gem content #{gem}|sed -n 1p`.match(/(.*?\w-\d.*?\/)/):false
   end
 
   def scangem(args)
+    puts "\e[33mAll Gems match < #{args} > :\e[0m"
+
     result = []
-    gemlist = `gem list | grep '#{args}'`
-    gemlist.scan(/^(\w.*?)\s/) do
+    `gem list | grep '#{args}'`.scan(/^(\w.*?)\s/) do
       result << $1
     end
-    return result
+
+    return !result.empty? ? result : (puts("\e[31mNo Result About < #{args} >\e[0m");false)
   end
 end

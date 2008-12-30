@@ -4,7 +4,23 @@ class Eo
   Repos = Hash.new
 
   config_file = File.join("#{ENV['HOME']}",".eo/config")
-  repos_file = File.join("#{ENV['HOME']}",".eorc")
+  repos_file = File.join("#{ENV['HOME']}",".eo/repos")
+
+  ############### FIXME upgrade compatible
+  require 'fileutils'
+  FileUtils.mkdir_p(File.join("#{ENV['HOME']}",".eo"))
+
+  origin = File.join("#{ENV['HOME']}",".eorc")
+  if File.exist?(origin) && !File.exist?(repos_file)
+    FileUtils.cp(origin,repos_file)
+    puts "\e[31mUpgrade Compatible: Rename #{origin} to #{repos_file}\e[0m"
+  end
+  if !File.exist?(config_file)
+    example = File.join(File.dirname(__FILE__),'../example/config')
+    FileUtils.cp(example,config_file)
+    puts "\e[31mUpgrade Compatible: Copy Example file to #{config_file}\e[0m"
+  end
+  ###############
 
   Config = {'open'  => 'vim'}.merge(
     File.exist?(config_file) ? YAML.load_file(config_file) : {}

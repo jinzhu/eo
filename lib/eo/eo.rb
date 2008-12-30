@@ -70,19 +70,22 @@ class Eo
     #Pick one or more repositories to operate,if single is true only pick one
     def pick(args,single=true)
       repos = Repos.keys.grep(/#{args}/)
+
       if repos.empty?
-        printf("\e[31mNo Result About < #{args} >.\n\e[0m")
+        puts("\e[31mNo Result About < #{args} >\e[0m")
         return false
-      else
-        return single ? choose_one(repos) : repos
       end
+
+      return single ? choose_one(repos) : repos
     end
 
     def choose_one(args)
+      return false unless args
+
       puts "\e[33mPlease Choose One of them : \e[0m"
       format_display(args)
 
-      num = choose_range(args.size)
+      args.size > 1 ? (num = choose_range(args.size)) : (return args)
       return num ? [args[num-1]] : false
     end
 

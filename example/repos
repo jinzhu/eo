@@ -1,0 +1,20 @@
+# vi filetype=yml
+#
+# hack hack hack, rename to ~/.eo/repos
+
+vim-rails:
+  path: ~/vim/vim-rails/                                     # Local path
+  repo: git://github.com/tpope/vim-rails.git                 # Remote path
+  autorun: 'puts "Thanks to Tim Pope";cp_autoload;cp_plugin' # Splited by ;
+  scm:   # default is git,you can define you scm-type in ~/.eo/scm
+  cmd:   # define your methods
+    cp_autoload: system('cp autoload/rails.vim ~/.vim/autoload/')
+    cp_plugin: system('cp plugin/rails.vim ~/.vim/plugin/')
+    example: 'puts "Hi,This is example method"'
+
+arch-linux:
+ cmd:
+   init:   system('sudo pacman -S $(cat ~/pkglist)')
+        # Install all software listed in ~/pkglist
+   update: system('sudo pacman -Suy')
+        # Synchronizing package databases,Then upgrade System
