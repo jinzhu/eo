@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rake'
 require 'echoe'
-require File.dirname(__FILE__) + '/lib/easyoperate'
+require File.dirname(__FILE__) + '/lib/version'
 
 Echoe.new('easyoperate', Easyoperate::VERSION) do |p|
   p.description     = "Eo_oE"

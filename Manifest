@@ -7,8 +7,8 @@ example/config
 example/repos
 Rakefile
 History.txt
+lib/version.rb
 lib/eo.rb
-lib/easyoperate.rb
 lib/eo/scm/git.rb
 lib/eo/scm/svn.rb
 lib/eo/eo.rb

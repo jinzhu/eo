@@ -12,7 +12,7 @@ else
   def debugger;end
 end
 
-require "easyoperate"
+require "version"
 require "eo"
 
 Eo.execute(ARGV)
