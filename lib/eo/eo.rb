@@ -16,7 +16,7 @@ class Eo
       format_display(@formated_scm)
     end
 
-    def show(*args)
+    def show(args)
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
       repos = pick(args,false)     # single:false  => allow choose many
       format_display(repos) if repos
@@ -24,13 +24,13 @@ class Eo
 
     def open(args)
       repos = pick(args)
-      system([Config['open'],Repos[repos.to_s].path].join(' ')) if repos
+      system([Config['open'],Repos[repos.first].path].join(' ')) if repos
     end
 
-    def choose(*args)
+    def choose(args)
       repos = pick(args)
 
-      if repos && repos = repos.to_s    # Convert Array To String
+      if repos && repos = repos.first    # Get First Array
         return false unless exist_path(repos)
         loop do
           printf("\e[01;34m#{repos} (h:help)>> \e[0m")
@@ -43,7 +43,7 @@ class Eo
       end
     end
 
-    def init(*args)
+    def init(args)
       repos = pick(args,false)
 
       repos.each do |x|
@@ -56,7 +56,7 @@ class Eo
       end
     end
 
-    def update(*args)
+    def update(args)
       repos = pick(args,false)
 
       repos.each do |x|

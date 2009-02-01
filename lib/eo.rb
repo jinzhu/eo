@@ -16,23 +16,23 @@ class Eo
 
   class << self
     def execute(args)
+      params = (args.size > 1) ? args[1,args.size].join : ''
+
       case args.first
-      when /^-gs$/i then gemshow(args[1,args.size])
-      when /^-gc$/i then gemshell(args[1,args.size])
-      when /^-go$/i then gemopen(args[1,args.size])
-      when /^-s$/i  then show(args[1,args.size])
-      when /^-o$/i  then open(args[1,args.size])
-      when /^-c$/i  then choose(args[1,args.size])
-      when /^-i$/i  then init(args[1,args.size])
-      when /^-u$/i  then update(args[1,args.size])
+      when /^-gs$/i then gemshow(params)
+      when /^-gc$/i then gemshell(params)
+      when /^-go$/i then gemopen(params)
+      when /^-s$/i  then show(params)
+      when /^-o$/i  then open(params)
+      when /^-c$/i  then choose(params)
+      when /^-i$/i  then init(params)
+      when /^-u$/i  then update(params)
       when /^-t$/i  then type
-      when /^-v$/i  then
-            puts "\e[33mEo_oE : v" + Easyoperate::VERSION + "\e[0m"
+      when /^-v$/i  then puts "\e[33mEo_oE : v#{Easyoperate::VERSION}\e[0m"
       when /^-(h|help)$/i  then help
       else self.run
       end
     end
-
 
     def run
       loop do
