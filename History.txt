@@ -1,3 +1,6 @@
+== 0.4.1 2009-2-1
+  * Ruby 1.9 compatible
+
 == 0.3.0 2008-12-26
 
   * Show All Install Gems, Goto Gem's Path ...
