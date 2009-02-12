@@ -33,8 +33,7 @@ class Eo
       if repos && repos = repos.first    # Get First Array
         return false unless exist_path(repos)
         loop do
-          printf("\e[01;34m#{repos} (h:help)>> \e[0m")
-          input = (STDIN.gets || exit).rstrip
+          input = (readline("\e[01;34m#{repos} (h:help)>> \e[0m",true) || exit).rstrip
 
           break if input =~ /\A\s*q\s*\Z/
           exit if input =~ /\A\s*Q\s*\Z/
@@ -90,8 +89,7 @@ class Eo
     end
 
     def choose_range(size)
-      printf "\e[33mPlease Input A Valid Number (1-#{size}) (q:quit): \e[0m"
-      num = STDIN.gets || exit
+      num = (readline("\e[33mPlease Input A Valid Number (1-#{size}) (q:quit): \e[0m",true) || exit)
       return false if num =~ /q/i
       num = num.strip.empty? ? 1 : num.to_i
       return (1..size).member?(num) ? num : choose_range(size)

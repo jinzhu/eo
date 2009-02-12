@@ -1,4 +1,6 @@
 %w(yaml eo/repository eo/gem eo/eo).each {|f| require f}
+require 'readline'
+include Readline
 
 class Eo
   Repos = Hash.new
@@ -36,8 +38,7 @@ class Eo
 
     def run
       loop do
-        printf("\e[33mInput Commands (q:quit h:help): \e[0m")
-        input = (STDIN.gets || exit).rstrip.split(' ',2)
+        input = (readline("\e[33mInput Commands (q:quit h:help): \e[0m",true) || exit).rstrip.split(' ',2)
 
         case input[0].to_s
         when /^GS$/i then gemshow(input[1])
