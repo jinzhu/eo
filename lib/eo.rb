@@ -1,5 +1,4 @@
-%w(yaml eo/repository eo/gem eo/eo).each {|f| require f}
-require 'readline'
+%w(yaml eo/repository eo/gem eo/eo readline).each {|f| require f}
 include Readline
 
 class Eo
