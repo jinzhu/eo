@@ -18,17 +18,17 @@ class Eo
 
     def show(args)
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
-      repos = pick(args,false)     # single:false  => allow choose many
+      repos = pick(:key => args,:plural => true)
       format_display(repos) if repos
     end
 
     def open(args)
-      repos = pick(args)
+      repos = pick(:key => args)
       system([Config['open'],Repos[repos.first].path].join(' ')) if repos
     end
 
     def choose(args)
-      repos = pick(args)
+      repos = pick(:key => args)
 
       if repos && repos = repos.first    # Get First Array
         return false unless exist_path(repos)
@@ -43,7 +43,7 @@ class Eo
     end
 
     def init(args)
-      repos = pick(args,false)
+      repos = pick(:key => args,:plural => true)
 
       repos.each do |x|
         if Repos[x].path && File.exist?(Repos[x].path)
@@ -56,7 +56,7 @@ class Eo
     end
 
     def update(args)
-      repos = pick(args,false)
+      repos = pick(:key => args,plural => true)
 
       repos.each do |x|
         puts "\e[32m Updating #{Repos[x]._name_}:\e[0m"
@@ -67,15 +67,15 @@ class Eo
 
     protected
     #Pick one or more repositories to operate,if single is true only pick one
-    def pick(args,single=true)
-      repos = Repos.keys.grep(/#{args}/)
+    def pick(opt={}) #args,single=true
+      repos = Repos.keys.grep(/#{opt[:key]}/)
 
       if repos.empty?
-        puts("\e[31mNo Result About < #{args} >\e[0m")
+        puts("\e[31mNo Result About < #{opt[:key]} >\e[0m")
         return false
       end
 
-      return single ? choose_one(repos) : repos
+      return opt[:plural] ? repos : choose_one(repos)
     end
 
     def choose_one(args)
