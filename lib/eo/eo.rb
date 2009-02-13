@@ -16,9 +16,9 @@ class Eo
       format_display(@formated_scm)
     end
 
-    def show(args)
+    def show(args,opt={})
       puts "\e[33mAll Repo match < #{args} > :\e[0m"
-      repos = pick(:key => args,:plural => true)
+      repos = pick(:key => args,:plural => true,:skip => opt[:skip])
       format_display(repos) if repos
     end
 
@@ -42,8 +42,8 @@ class Eo
       end
     end
 
-    def init(args)
-      repos = pick(:key => args,:plural => true)
+    def init(args,opt={})
+      repos = pick(:key => args,:plural => true,:skip => opt[:skip])
 
       repos.each do |x|
         if Repos[x].path && File.exist?(Repos[x].path)
@@ -55,8 +55,8 @@ class Eo
       end
     end
 
-    def update(args)
-      repos = pick(:key => args,plural => true)
+    def update(args,opt={})
+      repos = pick(:key => args,:plural => true,:skip => opt[:skip])
 
       repos.each do |x|
         puts "\e[32m Updating #{Repos[x]._name_}:\e[0m"
@@ -74,6 +74,8 @@ class Eo
         puts("\e[31mNo Result About < #{opt[:key]} >\e[0m")
         return false
       end
+
+      repos = repos.select {|x| !Repos[x].skip} if opt[:skip]
 
       return opt[:plural] ? repos : choose_one(repos)
     end

@@ -1,11 +1,11 @@
 $LOAD_PATH.unshift("#{ENV['HOME']}/.eo/",File.join(File.dirname(__FILE__)))
 
 class Repository
-  attr_accessor :repo,:path,:_name_,:autorun
+  attr_accessor :repo,:path,:_name_,:autorun,:skip
 
   def initialize(opt={})
 
-    ['repo','_name_','autorun'].each do |x|
+    ['repo','_name_','autorun','skip'].each do |x|
       eval "self.#{x} = opt.delete('#{x}')"
     end
 

@@ -23,11 +23,14 @@ class Eo
       when /^-gs$/i then gemshow(params)
       when /^-gc$/i then gemshell(params)
       when /^-go$/i then gemopen(params)
-      when /^-s$/i  then show(params)
+
+      when /^-s\w?$/i  then show(params,:skip => (args[0] =~ /^-sa$/).nil?)
+      when /^-i\w?$/i  then init(params,:skip => (args[0] =~ /^-ia$/).nil?)
+      when /^-u\w?$/i  then update(params,:skip => (args[0] =~ /^-ua$/).nil?)
+
       when /^-o$/i  then open(params)
       when /^-c$/i  then choose(params)
-      when /^-i$/i  then init(params)
-      when /^-u$/i  then update(params)
+
       when /^-t$/i  then type
       when /^-v$/i  then puts "\e[33mEo_oE : v#{Easyoperate::VERSION}\e[0m"
       when /^-(h|help)$/i  then help
@@ -43,11 +46,13 @@ class Eo
         when /^GS$/i then gemshow(input[1])
         when /^GC$/i then gemshell(input[1])
         when /^GO$/i then gemopen(input[1])
-        when /^S$/i  then show(input[1])
+
+        when /^s\w?/i then show(input[1],:skip => (input[0] =~ /^sa$/i).nil?)
+        when /^i\w?/i then init(input[1],:skip => (input[0] =~ /^ia$/i).nil?)
+        when /^u\w?/i then update(input[1],:skip =>(input[0] =~ /^ua$/i).nil?)
+
         when /^O$/i  then open(input[1])
         when /^C$/i  then choose(input[1])
-        when /^U$/i  then update(input[1])
-        when /^I$/i  then init(input[1])
         when /^T$/i  then type
         when /^Q$/i  then exit
         when /^V$/i  then
