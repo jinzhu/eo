@@ -72,6 +72,7 @@ class Eo
       |  I /args/ : Initialize matched Repository <Regexp>
       |  U /args/ : Update matched Repository     <Regexp>
       |  T        : Show All Support Scm
+      |  P        : Push All matched/pushable repositories <Regexp>
       |  S /args/ : Show matched repositories     <Regexp>
       |  O /args/ : Open The repository's path    <Regexp>
       |  C /args/ : Choose One Repository         <Regexp>

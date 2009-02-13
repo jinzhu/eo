@@ -9,6 +9,10 @@
   vim-rails:
     path: ~/vim/vim-rails/                        # Local path
 
+    skip: true                                    # skip
+
+    pushable: true                                # pushable
+
     repo: git://github.com/tpope/vim-rails.git    # Remote path
 
     autorun: 'puts "Thanks to Tim Pope";cp_autoload;cp_plugin'
