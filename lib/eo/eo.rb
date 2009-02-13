@@ -55,6 +55,13 @@ class Eo
       end
     end
 
+    def push(args)
+      repos = pick(:key => args,:plural => true,:pushable => true)
+      repos.each do |x|
+        Repos[x].push
+      end
+    end
+
     def update(args,opt={})
       repos = pick(:key => args,:plural => true,:skip => opt[:skip])
 
@@ -75,7 +82,8 @@ class Eo
         return false
       end
 
-      repos = repos.select {|x| !Repos[x].skip} if opt[:skip]
+      repos = repos.select {|x| !Repos[x].skip}    if opt[:skip]
+      repos = repos.select {|x| Repos[x].pushable} if opt[:pushable]
 
       return opt[:plural] ? repos : choose_one(repos)
     end

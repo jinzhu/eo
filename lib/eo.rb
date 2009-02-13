@@ -32,6 +32,7 @@ class Eo
       when /^-c$/i  then choose(params)
 
       when /^-t$/i  then type
+      when /^-p$/i  then push(params)
       when /^-v$/i  then puts "\e[33mEo_oE : v#{Easyoperate::VERSION}\e[0m"
       when /^-(h|help)$/i  then help
       else self.run
@@ -54,6 +55,7 @@ class Eo
         when /^O$/i  then open(input[1])
         when /^C$/i  then choose(input[1])
         when /^T$/i  then type
+        when /^P$/i  then push(input[1])
         when /^Q$/i  then exit
         when /^V$/i  then
           puts "\e[33mEo_oE : v" + Easyoperate::VERSION + "\e[0m"
