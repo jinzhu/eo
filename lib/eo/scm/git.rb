@@ -15,6 +15,10 @@ module Scm
       end
     end
 
+    def push
+      system("git push")
+    end
+
     def now_commit
       return `git log --pretty=format:%H -1`
     end

@@ -9,9 +9,7 @@ module Scm
       system("svn update")
       new_commit = now_commit
       if new_commit != old_commit && self.autorun
-        self.autorun.split(';').each do |x|
-          eval x
-        end
+        self.autorun.split(';').each { |x| eval x }
       end
     end
 

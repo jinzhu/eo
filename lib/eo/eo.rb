@@ -58,7 +58,8 @@ class Eo
     def push(args)
       repos = pick(:key => args,:plural => true,:pushable => true)
       repos.each do |x|
-        Repos[x].push
+        Dir.chdir(Repos[x].path) if Repos[x].path
+        Repos[x].push if Repos[x].respond_to?(:push)
       end
     end
 
