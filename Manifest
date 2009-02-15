@@ -3,8 +3,6 @@ test/test_helper.rb
 test/test_eo_cli.rb
 test/test_easyoperate.rb
 bin/eo
-example/config
-example/repos
 Rakefile
 History.txt
 lib/version.rb
