@@ -7,7 +7,7 @@ class Eo
   config_file = File.join("#{ENV['HOME']}",".eo/config")
   repos_file = File.join("#{ENV['HOME']}",".eo/repos")
 
-  Config = {'open'  => 'vim'}.merge(
+  Config = {'open'  => 'vim','shell' => 'sh'}.merge(
     File.exist?(config_file) ? YAML.load_file(config_file) : {}
   )
 

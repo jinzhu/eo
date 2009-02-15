@@ -58,7 +58,7 @@ class Repository
   alias h help
 
   def shell
-    system("sh")
+    system(Eo::Config['shell'])
   end
   alias sh shell
 

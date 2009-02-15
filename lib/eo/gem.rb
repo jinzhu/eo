@@ -11,7 +11,7 @@ module Gem
 
   def gemshell(args)
     path = gempick(args)
-    system("cd #{path} && sh") if path
+    system("cd #{path} && #{Eo::Config['shell']}") if path
   end
 
   protected
