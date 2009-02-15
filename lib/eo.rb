@@ -69,16 +69,16 @@ class Eo
       puts <<-DOC.gsub(/^(\s*)/,'').gsub(/^\|(\s*)/,'\1' + (shell ? '-':''))
       Usage:
 
-      |  I /args/ : Initialize matched Repository <Regexp>
-      |  U /args/ : Update matched Repository     <Regexp>
+      |  I /args/ : Initialize matched Repository  <Regexp>
+      |  U /args/ : Update matched Repository      <Regexp>
       |  T        : Show All Support Scm
-      |  P        : Push All matched/pushable repositories <Regexp>
-      |  S /args/ : Show matched repositories     <Regexp>
-      |  O /args/ : Open The repository's path    <Regexp>
-      |  C /args/ : Choose One Repository         <Regexp>
-      | GS /args/ : Show matched Gems             <Regexp>
-      | GC /args/ : Choose One Gem                <Regexp>
-      | GO /args/ : Open The Gem's Path           <Regexp>
+      |  P /args/ : Push All pushable repositories <Regexp>
+      |  S /args/ : Show matched repositories      <Regexp>
+      |  O /args/ : Open The repository's path     <Regexp>
+      |  C /args/ : Choose One Repository          <Regexp>
+      | GS /args/ : Show matched Gems              <Regexp>
+      | GC /args/ : Choose One Gem                 <Regexp>
+      | GO /args/ : Open The Gem's Path            <Regexp>
       |  Q        : Quit
       |  H        : Show this help message.
       |  V        : Show version information.

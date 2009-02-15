@@ -5,11 +5,13 @@
 
 == Why && How To Use:
 
-### ~/.eorc
+### ~/.eo/config
+  open:  vim
+  shell: bash
+
+### ~/.eo/repos
   vim-rails:
     path: ~/vim/vim-rails/                        # Local path
-
-    skip: true                                    # skip
 
     pushable: true                                # pushable
 
@@ -31,11 +33,12 @@
           # will print "Hi,This is example method"
 
   arch-linux:
-   cmd:
-     init:   system('sudo pacman -S $(cat ~/pkglist)')
-            # Install all software list in ~/pkglist
+    skip: true                                    # skip
+    cmd:
+      init:   system('sudo pacman -S $(cat ~/pkglist)')
+             # Install all software list in ~/pkglist
 
-     update: system('sudo pacman -Suy')
+      update: system('sudo pacman -Suy')
           # Synchronizing package databases,Then upgrade System
 
 
@@ -46,6 +49,7 @@
   $ eo -u vim-rails => Update vim-rails
                        run 'git pull' in vim-rails's path
   $ eo -u           => Update all repository in ~/.eorc <Regexp>
+  $ eo -p           => Push all pushable repository
 
 == More Help ?!
 
@@ -55,7 +59,7 @@
     $ h        for help
 
 
-Copyright (c) 2008  GPL3
+Copyright (c) 2008-2009  GPL3
 
   Author : Jinzhu Zhang
   Web    : http://www.zhangjinzhu.com
