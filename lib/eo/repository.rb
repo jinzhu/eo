@@ -62,6 +62,16 @@ class Repository
   end
   alias sh shell
 
+  def delete
+    if readline("\e[33mAre Your Sure ? \e[0m") !~ /q|n/i
+      if self.path && !self.path.empty?
+        FileUtils.rm_rf(self.path)
+      else
+        puts "\e[31mDon't know how to delete the repository!\e[0m"
+      end
+    end
+  end
+
   def method_missing(m,*args)
     # method missing -> shell command
     result = system(m.to_s + " " + args.join(' '))

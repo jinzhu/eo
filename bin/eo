@@ -6,7 +6,7 @@
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 
 # easy debug
-if ARGV.delete('-d')
+if ARGV.delete('--debug')
   ['rubygems','ruby-debug'].each {|x| require x}
 else
   def debugger;end

@@ -64,6 +64,15 @@ class Eo
       end
     end
 
+    def delete(args,opt={})
+      repos = pick(:key => args,:plural => true)
+
+      repos.each do |x|
+        puts "\e[32m Deleting #{Repos[x]._name_}:\e[0m"
+        Repos[x].delete
+      end
+    end
+
     def update(args,opt={})
       repos = pick(:key => args,:plural => true,:skip => opt[:skip])
 
