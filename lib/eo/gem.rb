@@ -25,7 +25,7 @@ module Gem
     puts "\e[33mAll Gems match < #{args} > :\e[0m"
 
     result = []
-    `gem list | grep '#{args}'`.scan(/^(\w.*?)\s/) do
+    `gem list | grep -iP '#{args}'`.scan(/^(\w.*?)\s/) do
       result << $1
     end
 
