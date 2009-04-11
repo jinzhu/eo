@@ -1,3 +1,12 @@
+== 0.5.5 2009-4-11
+  * add multi repos files to ~/.eo/repos_files
+  * gem: doesn't case sensitive
+  * option ( d ) to delete repository
+  * configure which shell to use
+  * you can push your repository (add pushable: true)
+  * you can skip some repository when update/init (add skip: true)
+  * add readline ,yeap enjoy arrow
+
 == 0.4.1 2009-2-1
   * Ruby 1.9 compatible
 
