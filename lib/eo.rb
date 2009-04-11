@@ -5,15 +5,17 @@ class Eo
   Repos = Hash.new
 
   config_file = File.join("#{ENV['HOME']}",".eo/config")
-  repos_file = File.join("#{ENV['HOME']}",".eo/repos")
+  repos_files = Dir.glob(File.join("#{ENV['HOME']}/.eo/repos_files",'*')).concat( File.join("#{ENV['HOME']}",".eo/repos").to_a )
 
   Config = {'open'  => 'vim','shell' => 'sh'}.merge(
     File.exist?(config_file) ? YAML.load_file(config_file) : {}
   )
 
-  YAML.load_file( repos_file ).each_pair do |key,value|
-    Repos[key] = Repository.new(value.merge!("_name_" => key))
-  end if File.exist?( repos_file )
+  repos_files.map do |f|
+    YAML.load_file( f ).each_pair do |key,value|
+      Repos[key] = Repository.new(value.merge!("_name_" => key))
+    end if File.exist?( f )
+  end
 
   class << self
     def execute(args)
