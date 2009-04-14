@@ -59,7 +59,7 @@ class Eo
       repos = pick(:key => args,:plural => true,:pushable => true)
       repos.each do |x|
         puts "\e[32m %-18s: Pushing\e[0m" % [x]
-        Dir.chdir(Repos[x].path) if Repos[x].path
+        next if !exist_path(x)
         Repos[x].push if Repos[x].respond_to?(:push)
       end
     end
