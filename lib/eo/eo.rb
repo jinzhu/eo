@@ -55,8 +55,9 @@ class Eo
       end
     end
 
-    def push(args)
-      repos = pick(:key => args,:plural => true,:pushable => true)
+    def push(args,opt={})
+      repos = pick(:key => args,:plural => true,:pushable => true,:skip => opt[:skip])
+
       repos.each do |x|
         puts "\e[32m %-18s: Pushing\e[0m" % [x]
         next if !exist_path(x)
