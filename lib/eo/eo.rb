@@ -86,7 +86,7 @@ class Eo
     protected
     #Pick one or more repositories to operate,if single is true only pick one
     def pick(opt={}) #args,single=true
-      repos = Repos.keys.grep(/#{opt[:key]}/)
+      repos = Repos.keys.grep(/#{opt[:key]}/i)
 
       if repos.empty?
         puts("\e[31mNo Result About < #{opt[:key]} >\e[0m")
