@@ -7,6 +7,7 @@ Rakefile
 History.txt
 lib/version.rb
 lib/eo.rb
+lib/eo/scm/git-svn.rb
 lib/eo/scm/git.rb
 lib/eo/scm/svn.rb
 lib/eo/eo.rb

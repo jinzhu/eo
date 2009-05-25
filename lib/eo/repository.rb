@@ -14,7 +14,7 @@ class Repository
     begin
       scm = opt['scm'] || 'git'
       require "scm/#{scm.downcase}"
-      extend eval "Scm::#{scm.capitalize.gsub(/-(\w)/,$1.to_s.upcase)}"
+      extend eval "Scm::#{scm.capitalize.gsub(/-(\w)/) { $1.to_s.upcase}}"
     rescue LoadError
       puts <<-DOC.gsub(/^(\s*\|)/,'')
         |\e[33m#{self._name_}\e[0m
