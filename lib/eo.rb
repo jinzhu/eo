@@ -5,7 +5,7 @@ class Eo
   Repos = Hash.new
 
   config_file = File.join("#{ENV['HOME']}",".eo/config")
-  repos_files = Dir.glob(File.join("#{ENV['HOME']}/.eo/repos_files",'*')).concat( File.join("#{ENV['HOME']}",".eo/repos").to_a )
+  repos_files = Dir.glob(File.join("#{ENV['HOME']}/.eo/repos_files",'*')) << File.join("#{ENV['HOME']}",".eo/repos")
 
   Config = {'open'  => 'vim','shell' => 'sh'}.merge(
     File.exist?(config_file) ? YAML.load_file(config_file) : {}
