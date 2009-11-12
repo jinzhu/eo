@@ -18,7 +18,7 @@ module Gem
   def gempick(args)
     gem = choose_one( scangem(args) )[0]
     # Got The Gem's Path
-    gem ? `gem content #{gem} | sed -n 1p`.match(/(.*?\w-\d.*?\/)/) : false
+    gem ? `gem content #{gem} #{RUBY_VERSION > "1.9" ? '' : '--prefix'} | sed -n 1p`.match(/(.*?\w-\d.*?\/)/) : false
   end
 
   def scangem(args)
