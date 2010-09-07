@@ -16,9 +16,10 @@ module Gem
 
   protected
   def gempick(args)
-    gem = choose_one( scangem(args) )[0]
+    gem = choose_one( scangem(args) )
+    gem = gem && gem[0]
     # Got The Gem's Path
-    gem ? `gem content #{gem} #{RUBY_VERSION > "1.9" ? '' : '--prefix'} | sed -n 1p`.match(/(.*?\w-\d.*?\/)/) : false
+    gem ? `gem content #{gem} #{RUBY_VERSION > "1.9" ? '' : '--prefix'} | sed -n 1p`.match(/(.*?#{gem}-\d.*?\/)/).to_s : false
   end
 
   def scangem(args)
@@ -29,6 +30,11 @@ module Gem
       result << $1
     end
 
-    return !result.empty? ? result : (puts("\e[31mNo Result About < #{args} >\e[0m");false)
+    if !result.empty?
+      return result
+    else
+      puts "\e[31mNo Result About < #{args} >\e[0m"
+      return false
+    end
   end
 end
